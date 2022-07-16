@@ -1,16 +1,13 @@
 // @ts-check
+import { MySQLConnection } from "../../application/infra/mysql/MySQLConnection.mjs";
 import { GiftOption } from "./GiftOption.mjs";
-
-/**
- * @typedef {import("../../application/infra/mysql/MySQLConnection.mjs").MySQLConnection} MySQLConnection
- */
 
 export class ListGiftOptions {
 	/**
 	 * 
-	 * @param {MySQLConnection} connection 
+	 * @param {MySQLConnection} [connection] 
 	 */
-	constructor(connection) {
+	constructor(connection = MySQLConnection.getInstance()) {
 		this.db = connection;
 	}
 

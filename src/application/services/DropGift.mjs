@@ -21,6 +21,7 @@ export class DropGift {
 	async execute({ itemId, guestId, quantityToDrop }) {
 		const guest = await this.guestsRepository.findById(guestId);
 		if (!guest) throw new Error("Guest not found");
+
 		const item = await this.itemsRepository.findById(itemId);
 		if (!item) throw new Error("Item not found");
 
