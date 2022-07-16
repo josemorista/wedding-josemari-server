@@ -1,11 +1,10 @@
 // @ts-check
 
 /**
- * @typedef {import("mysql2/promise").ConnectionOptions} ConnectionOptions
- * @typedef {import("mysql2/promise").Connection} Connection
+ * @typedef {import("mysql2/promise").Pool} Connection
  */
 
-import { createConnection } from "mysql2/promise";
+import { createPool } from "mysql2/promise";
 
 export class MySQLConnection {
 	/**
@@ -15,10 +14,10 @@ export class MySQLConnection {
 
 	/**
 	 * 
-	 * @param {ConnectionOptions} config 
+	 * @param {string} [uri] 
 	 */
-	constructor(config) {
-		this.config = config;
+	constructor(uri = process.env.DB_URI || "") {
+		this.uri = uri;
 		/**
 		 * @type {Connection | null}
 		 */
@@ -27,18 +26,20 @@ export class MySQLConnection {
 
 	/**
 	 * 
-	 * @param {ConnectionOptions} config 
+	 * @param {string} [uri] 
 	 */
-	static getInstance(config) {
+	static getInstance(uri) {
 		if (!MySQLConnection._instance) {
-			MySQLConnection._instance = new MySQLConnection(config);
+			MySQLConnection._instance = new MySQLConnection(uri);
 		}
 		return MySQLConnection._instance;
 	}
 
 	async getConnection() {
 		if (this._connection) return this._connection;
-		this._connection = await createConnection(this.config);
+		this._connection = await createPool({
+			uri: this.uri
+		});
 		return this._connection;
 	}
 }

@@ -20,8 +20,30 @@ export class GiftsRepository {
 	 * @param {string} guestId 
 	 * @param {string} itemId 
 	 * @param {number} quantity 
+	 * @abstract
 	 */
 	updateQuantity(guestId, itemId, quantity) {
+		throw new Error("Abstract method");
+	}
+
+	/**
+	 * 
+	 * @param {string} guestId 
+	 * @param {string} itemId 
+	 * @abstract
+	 */
+	delete(guestId, itemId) {
+		throw new Error("Abstract method");
+	}
+
+	/**
+	 * 
+	 * @param {string} guestId 
+	 * @param {string} itemId 
+	 * @returns {Promise<Gift | undefined>}
+	 * @abstract
+	 */
+	findByGuestIdAndItem(guestId, itemId) {
 		throw new Error("Abstract method");
 	}
 }
