@@ -26,14 +26,23 @@ export class GiveGift {
 		if (!guest) throw new Error("Guest not found");
 		const item = await this.itemsRepository.findById(itemId);
 		if (!item) throw new Error("Item not found");
-		const gift = new Gift({
-			guestId,
-			item,
-			quantity
-		});
-		await this.giftsRepository.save(gift);
+
+		let gift = await this.giftsRepository.findByGuestIdAndItem(guestId, itemId);
+
+		if (!gift) {
+			gift = new Gift({
+				guestId,
+				item,
+				quantity
+			});
+			await this.giftsRepository.save(gift);
+		} else {
+			gift.quantity = gift.quantity + quantity;
+			await this.giftsRepository.updateQuantity(guestId, itemId, gift.quantity);
+		}
+
 		await this.itemsRepository.updateAvailableQuantity(item.id,
-			item.quantityAvailableToGive - gift.quantity
+			item.quantityAvailableToGive - quantity
 		);
 	}
 }

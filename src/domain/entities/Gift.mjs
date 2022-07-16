@@ -6,7 +6,7 @@
 export class Gift {
 	/**
 	 * 
-	 * @param {Omit<Gift, "#verifyIfQuantityIsValid">} details 
+	 * @param {Omit<Gift, "_verifyIfQuantityIsValid">} details 
 	 */
 	constructor(
 		details
@@ -23,11 +23,18 @@ export class Gift {
 		 * @type {number}
 		 */
 		this.quantity = details.quantity;
-
-		this.#verifyIfQuantityIsValid();
 	}
 
-	#verifyIfQuantityIsValid() {
+	/**
+	 * 
+	 * @param {number} quantity 
+	 */
+	set quantity(quantity) {
+		this.quantity = quantity;
+		this._verifyIfQuantityIsValid();
+	}
+
+	_verifyIfQuantityIsValid() {
 		if (this.quantity <= 0) throw new Error("Negative quantity to give");
 		if (this.item.quantityAvailableToGive - this.quantity < 0) throw new Error("Invalid quantity");
 	}
