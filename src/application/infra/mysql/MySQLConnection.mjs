@@ -16,7 +16,7 @@ export class MySQLConnection {
 	 * 
 	 * @param {string} [uri] 
 	 */
-	constructor(uri = process.env.DB_URI || "") {
+	constructor(uri = process.env.DB_URI || "mysql://root:docker@localhost:3306/wedding-jose-mari") {
 		this.uri = uri;
 		/**
 		 * @type {Connection | null}

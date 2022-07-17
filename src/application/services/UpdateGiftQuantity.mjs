@@ -3,7 +3,7 @@
  * @typedef {import("../factories/RepositoriesFactory.mjs").RepositoriesFactory} RepositoriesFactory
  */
 
-export class CancelGift {
+export class UpdateGiftQuantity {
 	/**
 	 * @arg {RepositoriesFactory} repositoriesFactory
 	 */

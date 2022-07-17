@@ -26,7 +26,10 @@ export class MySQLGuestsRepository extends GuestsRepository {
 		const connection = await this.db.getConnection();
 		const [rows] = await connection.query("select g.* from Guest g where id=?;", [id]);
 		if (!rows[0]) return;
-		return new Guest(rows[0], rows[0].id);
+		return new Guest({
+			name: rows[0].name,
+			confirmed: !!rows[0].confirmed
+		}, rows[0].id);
 	}
 
 	/**
