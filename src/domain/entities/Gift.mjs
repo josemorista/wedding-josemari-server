@@ -6,7 +6,7 @@
 export class Gift {
 	/**
 	 * 
-	 * @param {Omit<Gift, "_verifyIfQuantityIsValid">} details 
+	 * @param {Gift} details 
 	 */
 	constructor(
 		details

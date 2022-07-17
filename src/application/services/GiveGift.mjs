@@ -36,6 +36,8 @@ export class GiveGift {
 			quantity
 		});
 
+		if (gift.quantity > item.quantityAvailableToGive) throw new Error("Invalid quantity");
+
 		await this.giftsRepository.save(gift);
 		await this.itemsRepository.updateAvailableQuantity(item.id,
 			item.quantityAvailableToGive - quantity

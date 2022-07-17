@@ -22,11 +22,12 @@ export class CancelGift {
 		const guest = await this.guestsRepository.findById(guestId);
 		if (!guest) throw new Error("Guest not found");
 
-		const item = await this.itemsRepository.findById(itemId);
-		if (!item) throw new Error("Item not found");
-
 		const gift = await this.giftsRepository.findByGuestIdAndItem(guestId, itemId);
 		if (!gift) throw new Error("Gift not found");
+
+		if (gift.quantity < quantity && (gift.item.quantityAvailableToGive + gift.quantity < quantity)) {
+			throw new Error("Invalid quantity");
+		}
 
 		if (quantity <= 0) {
 			await this.giftsRepository.delete(guestId, itemId);
@@ -35,7 +36,7 @@ export class CancelGift {
 		}
 
 		await this.itemsRepository.updateAvailableQuantity(itemId,
-			item.quantityAvailableToGive + gift.quantity - quantity
+			gift.item.quantityAvailableToGive + gift.quantity - quantity
 		);
 	}
 }
