@@ -1,13 +1,13 @@
 // @ts-check
 
-import { ToggleGuestConfirmation } from "../../../services/ToggleGuestConfirmation.mjs";
+import { Login } from "../../../services/Login.mjs";
 import { RestifyController } from "./RestifyController.mjs";
 import { MySQLRepositoriesFactory } from "../../mysql/factories/MySQLRepositoriesFactory.mjs";
 
-export class ToggleGuestConfirmationController extends RestifyController {
+export class LoginController extends RestifyController {
 	constructor() {
 		super();
-		this.toggleGuestService = new ToggleGuestConfirmation(new MySQLRepositoriesFactory());
+		this.loginService = new Login(new MySQLRepositoriesFactory());
 	}
 
 	/**
@@ -16,9 +16,8 @@ export class ToggleGuestConfirmationController extends RestifyController {
 	 */
 	async handle(request, response) {
 		try {
-			await this.toggleGuestService.execute(request.guestId || "");
-			response.statusCode = 204;
-			return response.send();
+			const { name } = request.body;
+			return response.json(await this.loginService.execute(name));
 		} catch (error) {
 			console.error(error);
 			response.statusCode = 400;

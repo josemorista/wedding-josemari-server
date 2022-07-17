@@ -23,4 +23,13 @@ export class GuestsRepository {
 	findById(guestId) {
 		throw new Error("Abstract method");
 	}
+
+	/**
+	 * @abstract
+	 * @arg {string} name
+	 * @returns {Promise<Guest | undefined>}
+	 */
+	findByName(name) {
+		throw new Error("Abstract method");
+	}
 }

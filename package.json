@@ -17,6 +17,7 @@
 	},
 	"dependencies": {
 		"cache-service-lib": "^1.1.2",
+		"jsonwebtoken": "^8.5.1",
 		"mysql2": "^2.3.3",
 		"restify": "^8.6.1"
 	}

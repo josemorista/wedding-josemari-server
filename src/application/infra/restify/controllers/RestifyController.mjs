@@ -1,5 +1,9 @@
 // @ts-check
 
+/**
+ * @typedef {import("restify").Request & {guestId?: string}} Request
+ */
+
 export class RestifyController {
 
 	constructor() {
@@ -8,7 +12,7 @@ export class RestifyController {
 
 	/**
 	 * @abstract
-	 * @param {import("restify").Request} request 
+	 * @param {Request} request 
 	 * @param {import("restify").Response} response 
 	 * @param {import("restify").Next} next 
 	 * @returns {Promise<void>}

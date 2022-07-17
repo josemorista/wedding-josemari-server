@@ -1,13 +1,14 @@
 // @ts-check
 
-import { ToggleGuestConfirmation } from "../../../services/ToggleGuestConfirmation.mjs";
+import { UpdateGiftQuantity } from "../../../services/UpdateGiftQuantity.mjs";
 import { RestifyController } from "./RestifyController.mjs";
 import { MySQLRepositoriesFactory } from "../../mysql/factories/MySQLRepositoriesFactory.mjs";
+import { cacheService } from "../../cache/services/CacheService.mjs";
 
-export class ToggleGuestConfirmationController extends RestifyController {
+export class UpdateGiftController extends RestifyController {
 	constructor() {
 		super();
-		this.toggleGuestService = new ToggleGuestConfirmation(new MySQLRepositoriesFactory());
+		this.updateGift = new UpdateGiftQuantity(cacheService, new MySQLRepositoriesFactory());
 	}
 
 	/**
@@ -16,7 +17,11 @@ export class ToggleGuestConfirmationController extends RestifyController {
 	 */
 	async handle(request, response) {
 		try {
-			await this.toggleGuestService.execute(request.guestId || "");
+			await this.updateGift.execute({
+				guestId: request.guestId || "",
+				itemId: request.body.itemId,
+				quantity: request.body.quantity
+			});
 			response.statusCode = 204;
 			return response.send();
 		} catch (error) {
