@@ -35,8 +35,8 @@ export class MySQLGuestsRepository extends GuestsRepository {
 	async updateConfirmation(guestId, confirmed) {
 		const connection = await this.db.getConnection();
 		await connection.query("update Guest set confirmed=? where id=?;", [
-			guestId,
-			confirmed
+			confirmed,
+			guestId
 		]);
 	}
 }

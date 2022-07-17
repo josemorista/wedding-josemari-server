@@ -44,7 +44,6 @@ export class MySQLGiftsRepository extends GiftsRepository {
 		]);
 	}
 
-
 	/**
 	 * 
 	 * @type {GiftsRepository["findByGuestIdAndItem"]}

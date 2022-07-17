@@ -28,19 +28,15 @@ export class GiveGift {
 		if (!item) throw new Error("Item not found");
 
 		let gift = await this.giftsRepository.findByGuestIdAndItem(guestId, itemId);
+		if (gift) throw new Error("Gift already exists");
 
-		if (!gift) {
-			gift = new Gift({
-				guestId,
-				item,
-				quantity
-			});
-			await this.giftsRepository.save(gift);
-		} else {
-			gift.quantity = gift.quantity + quantity;
-			await this.giftsRepository.updateQuantity(guestId, itemId, gift.quantity);
-		}
+		gift = new Gift({
+			guestId,
+			item,
+			quantity
+		});
 
+		await this.giftsRepository.save(gift);
 		await this.itemsRepository.updateAvailableQuantity(item.id,
 			item.quantityAvailableToGive - quantity
 		);

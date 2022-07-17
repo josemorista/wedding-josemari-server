@@ -33,7 +33,7 @@ export class ListGiftOptions {
 					itemId: row.id,
 					name: row.name,
 					picture: row.picture,
-					quantityRequested: row.quantityRequested,
+					quantityNeeded: row.quantityNeeded,
 					quantityAvailableToGive: row.quantityAvailableToGive
 				});
 				giftOptions.set(option.itemId, option);

@@ -3,19 +3,19 @@
 export class GiftOption {
 	/**
 	 * 
-	 * @arg {{itemId: string, name: string, picture: string, quantityRequested: number, quantityAvailableToGive: number}} details
+	 * @arg {{itemId: string, name: string, picture: string, quantityNeeded: number, quantityAvailableToGive: number}} details
 	 */
 	constructor(
 		{ itemId,
 			name,
 			picture,
-			quantityRequested,
+			quantityNeeded,
 			quantityAvailableToGive }
 	) {
 		this.itemId = itemId;
 		this.name = name;
 		this.picture = picture;
-		this.quantityRequested = quantityRequested;
+		this.quantityNeeded = quantityNeeded;
 		this.quantityAvailableToGive = quantityAvailableToGive;
 
 		/**
