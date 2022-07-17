@@ -1,17 +1,22 @@
 // @ts-check
 import { MySQLConnection } from "../../application/infra/mysql/MySQLConnection.mjs";
 import { GiftOption } from "./GiftOption.mjs";
+import { CACHE_KEYS } from "../../config/cache.mjs";
 
 export class ListGiftOptions {
 	/**
-	 * 
+	 * @param {import("cache-service-lib/lib").CacheService} cacheService
 	 * @param {MySQLConnection} [connection] 
 	 */
-	constructor(connection = MySQLConnection.getInstance()) {
+	constructor(cacheService, connection = MySQLConnection.getInstance()) {
 		this.db = connection;
+		this.cacheService = cacheService;
 	}
 
 	async execute() {
+		const cached = await this.cacheService.get(CACHE_KEYS.GIFT_OPTIONS);
+		if (cached) return cached;
+
 		const connection = await this.db.getConnection();
 
 		/**
@@ -46,6 +51,9 @@ export class ListGiftOptions {
 			}
 		}
 
-		return [...giftOptions.values()];
+		const asArray = [...giftOptions.values()];
+		await this.cacheService.set(CACHE_KEYS.GIFT_OPTIONS, asArray, 3600);
+
+		return asArray;
 	}
 }

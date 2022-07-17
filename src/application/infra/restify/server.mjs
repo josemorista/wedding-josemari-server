@@ -1,15 +1,15 @@
 import { createServer } from "restify";
-import { ToggleGuestConfirmationController } from "./controllers/ToggleGuestConfirmation.mjs";
-import { ensureAuthentication } from "./filters/ensureAuthentication.mjs";
+import { guestsRouter } from "./routers/GuestsRouter.mjs";
+import { giftsRouter } from "./routers/GiftsRouter.mjs";
 
 const server = createServer({
 	name: "wedding-jose-mari"
 });
 
-const toggleGuestController = new ToggleGuestConfirmationController();
+guestsRouter.register(server);
+giftsRouter.register(server);
 
-server.post("/guests/confirmation", ensureAuthentication, toggleGuestController.handle);
-
-server.listen(process.env.PORT || "3333", () => {
-	console.log("Server is online");
+const port = process.env.PORT || "3333";
+server.listen(port, () => {
+	console.log(`Server is online, ${port} is the love port!`);
 });

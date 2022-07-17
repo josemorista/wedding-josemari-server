@@ -1,19 +1,23 @@
 {
-  "name": "wedding-josemari-server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "eslint": "^8.19.0"
-  },
-  "dependencies": {
-    "mysql2": "^2.3.3",
-    "restify": "^8.6.1"
-  }
+	"name": "wedding-josemari-server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "src/application/infra/restify/server.mjs",
+	"scripts": {
+		"start": "node src/application/infra/restify/server.mjs",
+		"dev:server": "npx nodemon",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"eslint": "^8.19.0",
+		"nodemon": "^2.0.19"
+	},
+	"dependencies": {
+		"cache-service-lib": "^1.1.2",
+		"mysql2": "^2.3.3",
+		"restify": "^8.6.1"
+	}
 }

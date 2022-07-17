@@ -1,6 +1,7 @@
 // @ts-check
 
 import { Gift } from "../../domain/entities/Gift.mjs";
+import { CACHE_KEYS } from "../../config/cache.mjs";
 
 /**
  * @typedef {import("../factories/RepositoriesFactory.mjs").RepositoriesFactory} RepositoriesFactory
@@ -8,11 +9,14 @@ import { Gift } from "../../domain/entities/Gift.mjs";
 
 export class GiveGift {
 	/**
+	 * @arg {import("cache-service-lib").CacheService} cacheService
 	 * @arg {RepositoriesFactory} repositoriesFactory
 	 */
 	constructor(
+		cacheService,
 		repositoriesFactory
 	) {
+		this.cacheService = cacheService;
 		this.itemsRepository = repositoriesFactory.createItemsRepository();
 		this.guestsRepository = repositoriesFactory.createGuestsRepository();
 		this.giftsRepository = repositoriesFactory.createGiftsRepository();
@@ -42,5 +46,7 @@ export class GiveGift {
 		await this.itemsRepository.updateAvailableQuantity(item.id,
 			item.quantityAvailableToGive - quantity
 		);
+
+		await this.cacheService.del(CACHE_KEYS.GIFT_OPTIONS);
 	}
 }

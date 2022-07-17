@@ -8,8 +8,7 @@
  */
 export const ensureAuthentication = (request, response, next) => {
 	if (!request.headers.authorization) {
-		response.statusCode = 403;
-		return response.json({
+		return response.json(403, {
 			error: "Missing authorization header"
 		});
 	}
