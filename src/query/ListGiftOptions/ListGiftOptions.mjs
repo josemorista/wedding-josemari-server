@@ -2,6 +2,7 @@
 import { MySQLConnection } from "../../application/infra/mysql/MySQLConnection.mjs";
 import { GiftOption } from "./GiftOption.mjs";
 import { CACHE_KEYS } from "../../config/cache.mjs";
+import { COMMON_TIMES } from "cache-service-lib";
 
 export class ListGiftOptions {
 	/**
@@ -52,7 +53,7 @@ export class ListGiftOptions {
 		}
 
 		const asArray = [...giftOptions.values()];
-		await this.cacheService.set(CACHE_KEYS.GIFT_OPTIONS, asArray, 3600);
+		await this.cacheService.set(CACHE_KEYS.GIFT_OPTIONS, asArray, COMMON_TIMES.HALF_HOUR);
 
 		return asArray;
 	}
