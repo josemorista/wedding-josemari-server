@@ -15,46 +15,44 @@ export class ListGiftOptions {
 	}
 
 	async execute() {
-		const cached = await this.cacheService.get(CACHE_KEYS.GIFT_OPTIONS);
-		if (cached) return cached;
+		const call = async () => {
+			const connection = await this.db.getConnection();
 
-		const connection = await this.db.getConnection();
+			/**
+			 * @type {any}
+			 */
+			const [rows] = await connection.query(`
+				select i.*,g.guestId,g.quantity as givenQuantity from Item i left outer join Gift g on i.id=g.itemId;
+			`);
 
-		/**
-		 * @type {any}
-		 */
-		const [rows] = await connection.query(`
-			select i.*,g.guestId,g.quantity as givenQuantity from Item i left outer join Gift g on i.id=g.itemId;
-		`);
+			/**
+			 * @type {Map<string, GiftOption>}
+			 */
+			const giftOptions = new Map();
 
-		/**
-		 * @type {Map<string, GiftOption>}
-		 */
-		const giftOptions = new Map();
-
-		for (const row of rows) {
-			let option = giftOptions.get(row.id);
-			if (!option) {
-				option = new GiftOption({
-					itemId: row.id,
-					name: row.name,
-					picture: row.picture,
-					quantityNeeded: row.quantityNeeded,
-					quantityAvailableToGive: row.quantityAvailableToGive
-				});
-				giftOptions.set(option.itemId, option);
+			for (const row of rows) {
+				let option = giftOptions.get(row.id);
+				if (!option) {
+					option = new GiftOption({
+						itemId: row.id,
+						name: row.name,
+						picture: row.picture,
+						quantityNeeded: row.quantityNeeded,
+						quantityAvailableToGive: row.quantityAvailableToGive
+					});
+					giftOptions.set(option.itemId, option);
+				}
+				if (row.guestId) {
+					option.addToGiftHistory(
+						row.guestId,
+						row.givenQuantity
+					);
+				}
 			}
-			if (row.guestId) {
-				option.addToGiftHistory(
-					row.guestId,
-					row.givenQuantity
-				);
-			}
+			return [...giftOptions.values()];
 		}
 
-		const asArray = [...giftOptions.values()];
-		await this.cacheService.set(CACHE_KEYS.GIFT_OPTIONS, asArray, COMMON_TIMES.HALF_HOUR);
+		return await this.cacheService.call(call, CACHE_KEYS.GIFT_OPTIONS, COMMON_TIMES.HALF_HOUR);
 
-		return asArray;
 	}
 }
