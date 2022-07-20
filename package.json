@@ -16,7 +16,7 @@
 		"nodemon": "^2.0.19"
 	},
 	"dependencies": {
-		"cache-service-lib": "^1.1.2",
+		"cache-service-lib": "^1.3.0",
 		"jsonwebtoken": "^8.5.1",
 		"mysql2": "^2.3.3",
 		"restify": "^8.6.1"
