@@ -2,12 +2,12 @@
 
 import { Login } from "../../../services/Login.mjs";
 import { RestifyController } from "./RestifyController.mjs";
-import { MySQLRepositoriesFactory } from "../../mysql/factories/MySQLRepositoriesFactory.mjs";
+import { PgRepositoriesFactory } from "../../pg/factories/PgRepositoriesFactory.mjs";
 
 export class LoginController extends RestifyController {
 	constructor() {
 		super();
-		this.loginService = new Login(new MySQLRepositoriesFactory());
+		this.loginService = new Login(new PgRepositoriesFactory());
 	}
 
 	/**

@@ -2,12 +2,12 @@
 
 import { ToggleGuestConfirmation } from "../../../services/ToggleGuestConfirmation.mjs";
 import { RestifyController } from "./RestifyController.mjs";
-import { MySQLRepositoriesFactory } from "../../mysql/factories/MySQLRepositoriesFactory.mjs";
+import { PgRepositoriesFactory } from "../../pg/factories/PgRepositoriesFactory.mjs";
 
 export class ToggleGuestConfirmationController extends RestifyController {
 	constructor() {
 		super();
-		this.toggleGuestService = new ToggleGuestConfirmation(new MySQLRepositoriesFactory());
+		this.toggleGuestService = new ToggleGuestConfirmation(new PgRepositoriesFactory());
 	}
 
 	/**

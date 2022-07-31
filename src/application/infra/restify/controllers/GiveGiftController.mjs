@@ -2,13 +2,13 @@
 
 import { UpdateGiftQuantity } from "../../../services/UpdateGiftQuantity.mjs";
 import { RestifyController } from "./RestifyController.mjs";
-import { MySQLRepositoriesFactory } from "../../mysql/factories/MySQLRepositoriesFactory.mjs";
+import { PgRepositoriesFactory } from "../../pg/factories/PgRepositoriesFactory.mjs";
 import { cacheService } from "../../cache/services/CacheService.mjs";
 
 export class UpdateGiftController extends RestifyController {
 	constructor() {
 		super();
-		this.updateGift = new UpdateGiftQuantity(cacheService, new MySQLRepositoriesFactory());
+		this.updateGift = new UpdateGiftQuantity(cacheService, new PgRepositoriesFactory());
 	}
 
 	/**

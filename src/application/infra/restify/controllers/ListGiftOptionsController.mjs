@@ -1,6 +1,6 @@
 // @ts-check
 
-import { ListGiftOptions } from "../../../../query/ListGiftOptions/ListGiftOptions.mjs";
+import { ListGiftOptions } from "../../../../query/ListGiftOptions/pg/ListGiftOptions.mjs";
 import { RestifyController } from "./RestifyController.mjs";
 import { cacheService } from "../../cache/services/CacheService.mjs";
 

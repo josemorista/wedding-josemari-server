@@ -1,14 +1,14 @@
 // @ts-check
-import { MySQLConnection } from "../../application/infra/mysql/MySQLConnection.mjs";
-import { GiftOption } from "./GiftOption.mjs";
-import { CACHE_KEYS } from "../../config/cache.mjs";
+import { PgConnection } from "../../../application/infra/pg/PgConnection.mjs";
+import { GiftOption } from "../GiftOption.mjs";
+import { CACHE_KEYS } from "../../../config/cache.mjs";
 
 export class ListGiftOptions {
 	/**
 	 * @param {import("cache-service-lib/lib").CacheService} cacheService
-	 * @param {MySQLConnection} [connection] 
+	 * @param {PgConnection} [connection] 
 	 */
-	constructor(cacheService, connection = MySQLConnection.getInstance()) {
+	constructor(cacheService, connection = PgConnection.getInstance()) {
 		this.db = connection;
 		this.cacheService = cacheService;
 	}
@@ -17,11 +17,9 @@ export class ListGiftOptions {
 		const call = async () => {
 			const connection = await this.db.getConnection();
 
-			/**
-			 * @type {any}
-			 */
-			const [rows] = await connection.query(`
-				select i.*,g.guestId,g.quantity as givenQuantity from Item i left outer join Gift g on i.id=g.itemId;
+
+			const { rows } = await connection.query(`
+				select i.*,g.guest_id,g.quantity as given_quantity from Item i left outer join gift g on i.id=g.item_id;
 			`);
 
 			/**
@@ -36,15 +34,15 @@ export class ListGiftOptions {
 						itemId: row.id,
 						name: row.name,
 						picture: row.picture,
-						quantityNeeded: row.quantityNeeded,
-						quantityAvailableToGive: row.quantityAvailableToGive
+						quantityNeeded: row.quantity_needed,
+						quantityAvailableToGive: row.quantity_available_to_give
 					});
 					giftOptions.set(option.itemId, option);
 				}
-				if (row.guestId) {
+				if (row.guest_id) {
 					option.addToGiftHistory(
-						row.guestId,
-						row.givenQuantity
+						row.guest_id,
+						row.given_quantity
 					);
 				}
 			}

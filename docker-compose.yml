@@ -5,6 +5,13 @@ services:
     image: mysql:latest
     environment:
       - MYSQL_ROOT_PASSWORD=docker
-      - MYSQL_DATABASE=wedding-jose-mari
+      - MYSQL_DATABASE=wedding_jose_mari
     ports:
       - 3306:3306
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=wedding_jose_mari
+      - POSTGRES_PASSWORD=docker
+    ports:
+      - 5432:5432

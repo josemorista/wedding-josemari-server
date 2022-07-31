@@ -2,13 +2,13 @@
 
 import { GiveGift } from "../../../services/GiveGift.mjs";
 import { RestifyController } from "./RestifyController.mjs";
-import { MySQLRepositoriesFactory } from "../../mysql/factories/MySQLRepositoriesFactory.mjs";
+import { PgRepositoriesFactory } from "../../pg/factories/PgRepositoriesFactory.mjs";
 import { cacheService } from "../../cache/services/CacheService.mjs";
 
 export class GiveGiftController extends RestifyController {
 	constructor() {
 		super();
-		this.giveGift = new GiveGift(cacheService, new MySQLRepositoriesFactory());
+		this.giveGift = new GiveGift(cacheService, new PgRepositoriesFactory());
 	}
 
 	/**
