@@ -7,7 +7,7 @@
 export class GuestsRepository {
 	/**
 	 * @abstract
-	 * @arg {string} guestId
+	 * @arg {number} guestId
 	 * @arg {boolean} confirmed
 	 * @returns {Promise<void>}
 	 */
@@ -17,7 +17,7 @@ export class GuestsRepository {
 
 	/**
 	 * @abstract
-	 * @arg {string} guestId
+	 * @arg {number} guestId
 	 * @returns {Promise<Guest | undefined>}
 	 */
 	findById(guestId) {

@@ -16,7 +16,7 @@ export class ToggleGuestConfirmationController extends RestifyController {
 	 */
 	async handle(request, response) {
 		try {
-			await this.toggleGuestService.execute(request.guestId || "");
+			await this.toggleGuestService.execute(request.guestId || -1);
 			response.statusCode = 204;
 			return response.send();
 		} catch (error) {

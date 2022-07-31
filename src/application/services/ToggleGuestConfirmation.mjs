@@ -14,7 +14,7 @@ export class ToggleGuestConfirmation {
 
 	/**
 	 * 
-	 * @param {string} guestId 
+	 * @param {number} guestId 
 	 */
 	async execute(guestId) {
 		const guest = await this.guestsRepository.findById(guestId);

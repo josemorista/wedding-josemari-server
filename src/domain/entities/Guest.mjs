@@ -1,19 +1,16 @@
 // @ts-check
-import { randomUUID } from "crypto";
 
 export class Guest {
 	/**
-	 * @arg {Omit<Guest, "id">} details
-	 * @arg {string} [id]
+	 * @arg {Guest} details
 	 */
 	constructor(
-		details,
-		id
+		details
 	) {
 		/**
-		 * @type {string}
+		 * @type {number}
 		 */
-		this.id = id || randomUUID();
+		this.id = details.id;
 		/**
 		 * @type {string}
 		 */
@@ -22,5 +19,15 @@ export class Guest {
 		 * @type {boolean}
 		 */
 		this.confirmed = details.confirmed !== undefined ? details.confirmed : false;
+
+		/**
+		 * @type {number}
+		 */
+		this.numberOfChildren = details.numberOfChildren || 0;
+
+		/**
+		 * @type {number}
+		 */
+		this.numberOfEscorts = details.numberOfEscorts || 0;
 	}
 }

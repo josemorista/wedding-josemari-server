@@ -17,7 +17,7 @@ export class Gift {
 		 */
 		this.item = details.item;
 		/**
-		 * @type {string}
+		 * @type {number}
 		 */
 		this.guestId = details.guestId;
 		/**

@@ -26,7 +26,7 @@ export class Login {
 			name: guest.name,
 			confirmed: guest.confirmed
 		}, AUTH_SECRET, {
-			subject: guest.id,
+			subject: String(guest.id),
 			expiresIn: AUTH_EXPIRATION
 		});
 		return {

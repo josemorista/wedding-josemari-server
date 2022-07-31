@@ -1,17 +1,15 @@
 // @ts-check
-import { randomUUID } from "crypto";
 
 export class Item {
 	/**
 	 * 
-	 * @param {Omit<Item, "id">} details 
-	 * @param {string} [id]
+	 * @param {Item} details
 	 */
-	constructor(details, id) {
+	constructor(details) {
 		/**
-		 * @type {string}
+		 * @type {number}
 		 */
-		this.id = id || randomUUID();
+		this.id = details.id;
 		/**
 		 * @type {string}
 		 */

@@ -7,7 +7,7 @@
 export class ItemsRepository {
 	/**
 	 * 
-	 * @param {string} itemId
+	 * @param {number} itemId
 	 * @returns {Promise<Item | undefined>} 
 	 */
 	findById(itemId) {
@@ -16,7 +16,7 @@ export class ItemsRepository {
 
 	/**
 	 * 
-	 * @param {string} itemId 
+	 * @param {number} itemId 
 	 * @param {number} quantity 
 	 * @returns {Promise<void>}
 	 */

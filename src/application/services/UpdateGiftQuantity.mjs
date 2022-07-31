@@ -21,7 +21,7 @@ export class UpdateGiftQuantity {
 	}
 
 	/**
-	 * @arg {{itemId: string, guestId: string, quantity: number}} input
+	 * @arg {{itemId: number, guestId: number, quantity: number}} input
 	 */
 	async execute({ itemId, guestId, quantity }) {
 		const guest = await this.guestsRepository.findById(guestId);

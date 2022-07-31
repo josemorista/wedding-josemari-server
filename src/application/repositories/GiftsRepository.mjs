@@ -11,14 +11,14 @@ export class GiftsRepository {
 	 * @param {Gift} gift
 	 * @returns {Promise<void>}
 	 */
-	save(gift) {
+	create(gift) {
 		throw new Error("Abstract method");
 	}
 
 	/**
 	 * 
-	 * @param {string} guestId 
-	 * @param {string} itemId 
+	 * @param {number} guestId 
+	 * @param {number} itemId 
 	 * @param {number} quantity 
 	 * @abstract
 	 */
@@ -28,8 +28,8 @@ export class GiftsRepository {
 
 	/**
 	 * 
-	 * @param {string} guestId 
-	 * @param {string} itemId 
+	 * @param {number} guestId 
+	 * @param {number} itemId 
 	 * @abstract
 	 */
 	delete(guestId, itemId) {
@@ -38,8 +38,8 @@ export class GiftsRepository {
 
 	/**
 	 * 
-	 * @param {string} guestId 
-	 * @param {string} itemId 
+	 * @param {number} guestId 
+	 * @param {number} itemId 
 	 * @returns {Promise<Gift | undefined>}
 	 * @abstract
 	 */

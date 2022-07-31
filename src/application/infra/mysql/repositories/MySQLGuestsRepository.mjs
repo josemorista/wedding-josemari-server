@@ -27,9 +27,12 @@ export class MySQLGuestsRepository extends GuestsRepository {
 		const [rows] = await connection.query("select g.* from Guest g where id=? limit 1;", [id]);
 		if (!rows[0]) return;
 		return new Guest({
+			id: rows[0].id,
 			name: rows[0].name,
-			confirmed: !!rows[0].confirmed
-		}, rows[0].id);
+			confirmed: !!rows[0].confirmed,
+			numberOfChildren: rows[0].numberOfChildren,
+			numberOfEscorts: rows[0].numberOfEscorts
+		});
 	}
 
 	/**
@@ -44,9 +47,12 @@ export class MySQLGuestsRepository extends GuestsRepository {
 		const [rows] = await connection.query("select g.* from Guest g where name like ? limit 2;", [`${name}%`]);
 		if (!rows[0] || rows.length > 1) return;
 		return new Guest({
+			id: rows[0].id,
 			name: rows[0].name,
-			confirmed: !!rows[0].confirmed
-		}, rows[0].id);
+			confirmed: !!rows[0].confirmed,
+			numberOfChildren: rows[0].numberOfChildren,
+			numberOfEscorts: rows[0].numberOfEscorts
+		});
 	}
 
 	/**

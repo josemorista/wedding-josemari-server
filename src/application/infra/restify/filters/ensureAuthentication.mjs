@@ -27,7 +27,7 @@ export const ensureAuthentication = (request, response, next) => {
 		 * @type {any}
 		 */
 		const decoded = jwt.verify(token, AUTH_SECRET);
-		request.guestId = decoded.sub;
+		request.guestId = parseInt(decoded.sub);
 		return next();
 	} catch (error) {
 		return response.json(401, {

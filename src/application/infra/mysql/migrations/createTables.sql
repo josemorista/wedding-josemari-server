@@ -1,11 +1,13 @@
 create table if not exists Guest (
-	id varchar(36) primary key not null,
+	id int primary key not null auto_increment,
 	name varchar(100) not null unique,
-	confirmed bool not null default false
+	confirmed bool not null default false,
+	numberOfChildren smallint not null default 0,
+	numberOfEscorts smallint not null default 0
 ) default charset='UTF8MB4';
 
 create table if not exists Item (
-	id varchar(36) primary key not null,
+	id int primary key not null auto_increment,
 	name varchar(100) not null,
 	picture varchar(50) not null,
 	quantityAvailableToGive smallint unsigned not null default 1,
@@ -13,8 +15,8 @@ create table if not exists Item (
 ) default charset='utf8mb4';
 
 create table if not exists Gift (
-	guestId varchar(36) not null,
-	itemId varchar(36) not null,
+	guestId int not null,
+	itemId int not null,
 	quantity smallint unsigned not null,
 	constraint fk_gift_guest foreign key(guestId) references Guest(id) on delete cascade on update cascade,
 	constraint fk_gift_item foreign key(itemId) references Item(id) on delete cascade on update cascade,

@@ -26,7 +26,7 @@ export class MySQLItemsRepository extends ItemsRepository {
 		const connection = await this.db.getConnection();
 		const [rows] = await connection.query("select i.* from Item i where id=?;", [id]);
 		if (!rows[0]) return;
-		return new Item(rows[0], rows[0].id);
+		return new Item(rows[0]);
 	}
 
 	/**

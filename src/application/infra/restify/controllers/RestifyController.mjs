@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @typedef {import("restify").Request & {guestId?: string}} Request
+ * @typedef {import("restify").Request & {guestId?: number}} Request
  */
 
 export class RestifyController {

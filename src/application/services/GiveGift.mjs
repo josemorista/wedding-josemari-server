@@ -23,7 +23,7 @@ export class GiveGift {
 	}
 
 	/**
-	 * @arg {{itemId: string, guestId: string, quantity: number}} input
+	 * @arg {{itemId: number, guestId: number, quantity: number}} input
 	 */
 	async execute({ itemId, guestId, quantity }) {
 		const guest = await this.guestsRepository.findById(guestId);
@@ -42,7 +42,7 @@ export class GiveGift {
 
 		if (gift.quantity > item.quantityAvailableToGive) throw new Error("Invalid quantity");
 
-		await this.giftsRepository.save(gift);
+		await this.giftsRepository.create(gift);
 		await this.itemsRepository.updateAvailableQuantity(item.id,
 			item.quantityAvailableToGive - quantity
 		);

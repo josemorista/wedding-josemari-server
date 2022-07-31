@@ -21,9 +21,9 @@ export class MySQLGiftsRepository extends GiftsRepository {
 
 	/**
 	 * 
-	 * @type {GiftsRepository["save"]}
+	 * @type {GiftsRepository["create"]}
 	 */
-	async save(gift) {
+	async create(gift) {
 		const connection = await this.db.getConnection();
 		await connection.query("insert into Gift(itemId,guestId,quantity) values (?,?,?);", [
 			gift.item.id,
@@ -59,6 +59,7 @@ export class MySQLGiftsRepository extends GiftsRepository {
 			guestId,
 			quantity: rows[0].quantity,
 			item: new Item({
+				id: itemId,
 				name: rows[0].name,
 				picture: rows[0].picture,
 				quantityAvailableToGive: rows[0].quantityAvailableToGive,
