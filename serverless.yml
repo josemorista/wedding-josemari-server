@@ -1,0 +1,53 @@
+service: wedding-sls
+frameworkVersion: "3"
+plugins:
+  - serverless-webpack
+  - serverless-offline
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+  dynamodb:
+    stages:
+      - prod
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  memorySize: 128
+  stage: "prod"
+  region: "us-east-1"
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource: "arn:aws:dynamodb:${self.provider.region}:*:table/wedding_jose_mari"
+
+functions:
+  listOptions:
+    handler: src/application/infra/serverless/functions/listGiftOptions.handler
+    events:
+      - http:
+          path: /gifts
+          method: GET
+          cors: true
+
+resources:
+  Resources:
+    dynamoDbWedding:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+        TableName: wedding_jose_mari
+        AttributeDefinitions:
+          - AttributeName: key
+            AttributeType: S
+          - AttributeName: kind
+            AttributeType: S
+        KeySchema:
+          - AttributeName: kind
+            KeyType: HASH
+          - AttributeName: id
+            KeyType: RANGE

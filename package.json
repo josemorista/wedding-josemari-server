@@ -6,20 +6,29 @@
 	"scripts": {
 		"start": "node src/application/infra/restify/server.mjs",
 		"dev:server": "npx nodemon",
+		"dev:serverless": "npx serverless offline",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
+		"@babel/core": "^7.18.9",
+		"@babel/preset-env": "^7.18.9",
+		"babel-loader": "^8.2.5",
 		"eslint": "^8.19.0",
-		"nodemon": "^2.0.19"
+		"nodemon": "^2.0.19",
+		"serverless-offline": "^9.1.2",
+		"serverless-webpack": "^5.8.0",
+		"webpack": "^5.74.0"
 	},
 	"dependencies": {
 		"cache-service-lib": "^3.0.0",
 		"jsonwebtoken": "^8.5.1",
-		"mysql2": "^2.3.3",
 		"pg": "^8.7.3",
 		"restify": "^8.6.1"
+	},
+	"peerDependencies": {
+		"mysql2": "^2.3.3"
 	}
 }
