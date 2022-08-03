@@ -16,7 +16,7 @@ export const handle = withAuthorization(async (event) => {
 			itemId: body.itemId,
 			quantity: body.quantity
 		});
-		return new SlsResponse({}, 201);
+		return new SlsResponse(undefined, 201);
 	} catch (error) {
 		console.error(error);
 		return new SlsResponse({

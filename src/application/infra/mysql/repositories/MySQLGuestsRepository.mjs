@@ -56,12 +56,14 @@ export class MySQLGuestsRepository extends GuestsRepository {
 	}
 
 	/**
-	 * @type {GuestsRepository["updateConfirmation"]}
+	 * @type {GuestsRepository["updateGuest"]}
 	 */
-	async updateConfirmation(guestId, confirmed) {
+	async updateGuest(guestId, updateGuestDTO) {
 		const connection = await this.db.getConnection();
-		await connection.query("update Guest set confirmed=? where id=?;", [
-			confirmed,
+		await connection.query("update Guest set confirmed=?,numberOfChildren=?,numberOfEscorts=? where id=?;", [
+			updateGuestDTO.confirmed,
+			updateGuestDTO.numberOfChildren,
+			updateGuestDTO.numberOfEscorts,
 			guestId
 		]);
 	}

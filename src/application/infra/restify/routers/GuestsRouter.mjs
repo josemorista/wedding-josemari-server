@@ -1,7 +1,7 @@
 // @ts-check
 
 import { RestifyRouter } from "./RestifyRouter.mjs";
-import { ToggleGuestConfirmationController } from "../controllers/ToggleGuestConfirmation.mjs";
+import { UpdateGuestController } from "../controllers/UpdateGuest.mjs";
 import { LoginController } from "../controllers/LoginController.mjs";
 import { ensureAuthentication } from "../filters/ensureAuthentication.mjs";
 
@@ -9,7 +9,7 @@ class GuestsRouter extends RestifyRouter {
 
 	constructor() {
 		super();
-		this.toggleConfirmation = new ToggleGuestConfirmationController();
+		this.toggleConfirmation = new UpdateGuestController();
 		this.login = new LoginController();
 	}
 
@@ -18,7 +18,7 @@ class GuestsRouter extends RestifyRouter {
 	 * @type {RestifyRouter["register"]}
 	 */
 	register(server) {
-		server.patch("/guests/confirmation", ensureAuthentication, this.toggleConfirmation.handle);
+		server.put("/guests", ensureAuthentication, this.toggleConfirmation.handle);
 		server.post("/guests/login", this.login.handle);
 	}
 }

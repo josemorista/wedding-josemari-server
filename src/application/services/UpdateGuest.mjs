@@ -2,9 +2,11 @@
 
 /**
  * @typedef {import("../factories/RepositoriesFactory.mjs").RepositoriesFactory} RepositoriesFactory
+ * @typedef {import("../../domain/entities/Guest.mjs").Guest} Guest
+ * @typedef {Partial<Pick<Guest, 'confirmed' | 'numberOfChildren' | 'numberOfEscorts'>>} UpdateGuestInput
  */
 
-export class ToggleGuestConfirmation {
+export class UpdateGuest {
 	/**
 	 * @arg {RepositoriesFactory} repositoriesFactory
 	 */
@@ -15,10 +17,14 @@ export class ToggleGuestConfirmation {
 	/**
 	 * 
 	 * @param {number} guestId 
+	 * @param {UpdateGuestInput} updateGuestInput
 	 */
-	async execute(guestId) {
+	async execute(guestId, updateGuestInput) {
 		const guest = await this.guestsRepository.findById(guestId);
 		if (!guest) throw new Error("Guest not found");
-		await this.guestsRepository.updateConfirmation(guest.id, !guest.confirmed);
+		await this.guestsRepository.updateGuest(guest.id, {
+			...guest,
+			...updateGuestInput
+		});
 	}
 }

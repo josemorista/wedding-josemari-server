@@ -18,7 +18,7 @@ export class UpdateGiftController extends RestifyController {
 	async handle(request, response) {
 		try {
 			await this.updateGift.execute({
-				guestId: request.guestId || -1,
+				guestId: request.guestId || 0,
 				itemId: request.body.itemId,
 				quantity: request.body.quantity
 			});

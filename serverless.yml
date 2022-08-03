@@ -9,13 +9,13 @@ custom:
     includeModules: true
   dynamodb:
     stages:
-      - prod
+      - v1
 
 provider:
   name: aws
   runtime: nodejs16.x
   memorySize: 128
-  stage: "api"
+  stage: "v1"
   region: "us-east-1"
   iamRoleStatements:
     - Effect: Allow
@@ -51,6 +51,13 @@ functions:
       - http:
           path: /guests/login
           method: POST
+          cors: true
+  updateGuest:
+    handler: src/application/infra/serverless/functions/updateGuest.handle
+    events:
+      - http:
+          path: /guests
+          method: PUT
           cors: true
 
 resources:

@@ -53,12 +53,14 @@ export class PgGuestsRepository extends GuestsRepository {
 	}
 
 	/**
-	 * @type {GuestsRepository["updateConfirmation"]}
+	 * @type {GuestsRepository["updateGuest"]}
 	 */
-	async updateConfirmation(guestId, confirmed) {
+	async updateGuest(guestId, updateGuestDTO) {
 		const connection = await this.db.getConnection();
-		await connection.query("update Guest set confirmed=$1 where id=$2;", [
-			confirmed,
+		await connection.query("update Guest set confirmed=$1,number_of_children=$2,number_of_escorts=$3 where id=$4;", [
+			updateGuestDTO.confirmed,
+			updateGuestDTO.numberOfChildren,
+			updateGuestDTO.numberOfEscorts,
 			guestId
 		]);
 	}

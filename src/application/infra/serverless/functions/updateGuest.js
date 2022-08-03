@@ -1,21 +1,15 @@
 // @ts-check
-
-import { UpdateGiftQuantity } from "../../../services/UpdateGiftQuantity.mjs";
+import { UpdateGuest } from "../../../services/UpdateGuest.mjs";
 import { PgRepositoriesFactory } from "../../pg/factories/PgRepositoriesFactory.mjs";
-import { cacheService } from "../../cache/services/CacheService.mjs";
 import { SlsResponse } from "../entities/SlsResponse";
 import { withAuthorization } from "../hofs/withAuthorization";
 
-const updateGift = new UpdateGiftQuantity(cacheService, new PgRepositoriesFactory());
+const updateGuest = new UpdateGuest(new PgRepositoriesFactory());
 
 export const handle = withAuthorization(async (event) => {
 	try {
 		const body = JSON.parse(event.body);
-		await updateGift.execute({
-			guestId: event.guestId,
-			itemId: body.itemId,
-			quantity: body.quantity
-		});
+		await updateGuest.execute(event.guestId, body);
 		return new SlsResponse(undefined, 204);
 	} catch (error) {
 		console.error(error);

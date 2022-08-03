@@ -1,13 +1,13 @@
 // @ts-check
 
-import { ToggleGuestConfirmation } from "../../../services/ToggleGuestConfirmation.mjs";
+import { UpdateGuest } from "../../../services/UpdateGuest.mjs";
 import { RestifyController } from "./RestifyController.mjs";
 import { PgRepositoriesFactory } from "../../pg/factories/PgRepositoriesFactory.mjs";
 
-export class ToggleGuestConfirmationController extends RestifyController {
+export class UpdateGuestController extends RestifyController {
 	constructor() {
 		super();
-		this.toggleGuestService = new ToggleGuestConfirmation(new PgRepositoriesFactory());
+		this.toggleGuestService = new UpdateGuest(new PgRepositoriesFactory());
 	}
 
 	/**
@@ -16,7 +16,7 @@ export class ToggleGuestConfirmationController extends RestifyController {
 	 */
 	async handle(request, response) {
 		try {
-			await this.toggleGuestService.execute(request.guestId || -1);
+			await this.toggleGuestService.execute(request.guestId || 0, request.body);
 			response.statusCode = 204;
 			return response.send();
 		} catch (error) {

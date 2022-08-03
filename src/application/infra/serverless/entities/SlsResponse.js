@@ -9,7 +9,7 @@ export class SlsResponse {
 		/**
 		 * @type {string}
 		 */
-		this.body = JSON.stringify(body);
+		this.body = body && JSON.stringify(body);
 		/**
 		 * @type {number}
 		 */

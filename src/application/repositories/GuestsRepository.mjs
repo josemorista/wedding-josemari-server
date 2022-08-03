@@ -8,10 +8,10 @@ export class GuestsRepository {
 	/**
 	 * @abstract
 	 * @arg {number} guestId
-	 * @arg {boolean} confirmed
+	 * @arg {Omit<Guest, 'id' | 'name'>} updateGuestDTO
 	 * @returns {Promise<void>}
 	 */
-	updateConfirmation(guestId, confirmed) {
+	updateGuest(guestId, updateGuestDTO) {
 		throw new Error("Abstract method");
 	}
 
