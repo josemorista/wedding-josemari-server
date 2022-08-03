@@ -1,14 +1,14 @@
 // @ts-check
 
-import { GiveGift } from "../../../services/GiveGift.mjs";
+import { UpdateGiftQuantity } from "../../../services/UpdateGiftQuantity.mjs";
 import { RestifyController } from "./RestifyController.mjs";
 import { PgRepositoriesFactory } from "../../pg/factories/PgRepositoriesFactory.mjs";
 import { cacheService } from "../../cache/services/CacheService.mjs";
 
-export class GiveGiftController extends RestifyController {
+export class UpdateGiftController extends RestifyController {
 	constructor() {
 		super();
-		this.giveGift = new GiveGift(cacheService, new PgRepositoriesFactory());
+		this.updateGift = new UpdateGiftQuantity(cacheService, new PgRepositoriesFactory());
 	}
 
 	/**
@@ -17,12 +17,12 @@ export class GiveGiftController extends RestifyController {
 	 */
 	async handle(request, response) {
 		try {
-			await this.giveGift.execute({
+			await this.updateGift.execute({
 				guestId: request.guestId || -1,
 				itemId: request.body.itemId,
 				quantity: request.body.quantity
 			});
-			response.statusCode = 201;
+			response.statusCode = 204;
 			return response.send();
 		} catch (error) {
 			console.error(error);

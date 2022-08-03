@@ -15,7 +15,7 @@ provider:
   name: aws
   runtime: nodejs16.x
   memorySize: 128
-  stage: "prod"
+  stage: "api"
   region: "us-east-1"
   iamRoleStatements:
     - Effect: Allow
@@ -25,11 +25,32 @@ provider:
 
 functions:
   listOptions:
-    handler: src/application/infra/serverless/functions/listGiftOptions.handler
+    handler: src/application/infra/serverless/functions/listGiftOptions.handle
     events:
       - http:
           path: /gifts
           method: GET
+          cors: true
+  updateGift:
+    handler: src/application/infra/serverless/functions/updateGift.handle
+    events:
+      - http:
+          path: /gifts/quantity
+          method: PATCH
+          cors: true
+  giveGift:
+    handler: src/application/infra/serverless/functions/giveGift.handle
+    events:
+      - http:
+          path: /gifts
+          method: POST
+          cors: true
+  login:
+    handler: src/application/infra/serverless/functions/login.handle
+    events:
+      - http:
+          path: /guests/login
+          method: POST
           cors: true
 
 resources:

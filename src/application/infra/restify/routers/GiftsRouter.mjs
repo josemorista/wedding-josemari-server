@@ -2,8 +2,8 @@
 
 import { RestifyRouter } from "./RestifyRouter.mjs";
 import { ListGiftOptionsController } from "../controllers/ListGiftOptionsController.mjs";
-import { UpdateGiftController } from "../controllers/GiveGiftController.mjs";
-import { GiveGiftController } from "../controllers/UpdateGiftController.mjs";
+import { GiveGiftController } from "../controllers/GiveGiftController.mjs";
+import { UpdateGiftController } from "../controllers/UpdateGiftController.mjs";
 import { ensureAuthentication } from "../filters/ensureAuthentication.mjs";
 
 
