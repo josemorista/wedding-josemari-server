@@ -72,10 +72,9 @@ resources:
         AttributeDefinitions:
           - AttributeName: key
             AttributeType: S
-          - AttributeName: kind
-            AttributeType: S
         KeySchema:
-          - AttributeName: kind
+          - AttributeName: key
             KeyType: HASH
-          - AttributeName: id
-            KeyType: RANGE
+        TimeToLiveSpecification:
+          AttributeName: ttl
+          Enabled: true
