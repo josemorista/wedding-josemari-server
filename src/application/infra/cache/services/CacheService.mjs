@@ -2,7 +2,7 @@
 import { CacheService, DynamoDbCacheStrategy } from "cache-service-lib";
 
 const cacheService = new CacheService();
-cacheService.registerStrategy("memCache", new DynamoDbCacheStrategy({
+cacheService.registerStrategy("dynamodb", new DynamoDbCacheStrategy({
 
 }, {
 	cacheHashValue: "#CACHE",
