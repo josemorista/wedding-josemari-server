@@ -17,11 +17,13 @@ provider:
   memorySize: 128
   stage: "v1"
   region: "us-east-1"
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:*
-      Resource: "arn:aws:dynamodb:${self.provider.region}:*:table/wedding_jose_mari"
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:*
+          Resource: "arn:aws:dynamodb:us-east-1:*:table/wedding_jose_mari_cache"
 
 functions:
   listOptions:
@@ -68,7 +70,7 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 5
           WriteCapacityUnits: 5
-        TableName: wedding_jose_mari
+        TableName: wedding_jose_mari_cache
         AttributeDefinitions:
           - AttributeName: key
             AttributeType: S
