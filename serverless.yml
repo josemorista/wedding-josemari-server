@@ -1,6 +1,7 @@
 service: wedding-sls
 frameworkVersion: "3"
 plugins:
+  - serverless-dotenv-plugin
   - serverless-webpack
   - serverless-offline
 custom:
@@ -23,7 +24,7 @@ provider:
         - Effect: Allow
           Action:
             - dynamodb:*
-          Resource: "arn:aws:dynamodb:us-east-1:*:table/wedding_jose_mari_cache"
+          Resource: "arn:aws:dynamodb:us-east-1:*:table/wedding_jose_mari"
 
 functions:
   listOptions:
@@ -70,13 +71,17 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 5
           WriteCapacityUnits: 5
-        TableName: wedding_jose_mari_cache
+        TableName: wedding_jose_mari
         AttributeDefinitions:
+          - AttributeName: kind
+            AttributeType: S
           - AttributeName: key
             AttributeType: S
         KeySchema:
-          - AttributeName: key
+          - AttributeName: kind
             KeyType: HASH
+          - AttributeName: key
+            KeyType: RANGE
         TimeToLiveSpecification:
           AttributeName: ttl
           Enabled: true
