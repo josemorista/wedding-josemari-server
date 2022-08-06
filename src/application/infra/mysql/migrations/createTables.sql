@@ -11,7 +11,9 @@ create table if not exists Item (
 	name varchar(100) not null,
 	picture varchar(50) not null,
 	quantityAvailableToGive smallint unsigned not null default 1,
-	quantityNeeded smallint unsigned not null default 1 
+	quantityNeeded smallint unsigned not null default 1,
+	suggestedSeller varchar(2000),
+	averagePrice float not null
 ) default charset='utf8mb4';
 
 create table if not exists Gift (

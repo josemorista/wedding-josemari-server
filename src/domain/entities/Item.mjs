@@ -26,5 +26,13 @@ export class Item {
 		 * @type {number}
 		 */
 		this.quantityAvailableToGive = details.quantityAvailableToGive;
+		/**
+		 * @type {number}
+		 */
+		this.averagePrice = details.averagePrice;
+		/**
+		 * @type{string | null}
+		 */
+		this.suggestedSeller = details.suggestedSeller;
 	}
 }

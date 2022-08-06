@@ -31,7 +31,9 @@ export class PgItemsRepository extends ItemsRepository {
 			name: rows[0].name,
 			picture: rows[0].picture,
 			quantityAvailableToGive: rows[0].quantity_available_to_give,
-			quantityNeeded: rows[0].quantity_needed
+			quantityNeeded: rows[0].quantity_needed,
+			averagePrice: rows[0].average_price,
+			suggestedSeller: rows[0].suggested_seller
 		});
 	}
 
