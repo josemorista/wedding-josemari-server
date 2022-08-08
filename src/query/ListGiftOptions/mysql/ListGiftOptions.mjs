@@ -25,7 +25,7 @@ export class ListGiftOptions {
 			`);
 
 			/**
-			 * @type {Map<string, GiftOption>}
+			 * @type {Map<number, GiftOption>}
 			 */
 			const giftOptions = new Map();
 
@@ -33,11 +33,13 @@ export class ListGiftOptions {
 				let option = giftOptions.get(row.id);
 				if (!option) {
 					option = new GiftOption({
-						itemId: row.id,
+						id: row.id,
 						name: row.name,
 						picture: row.picture,
 						quantityNeeded: row.quantityNeeded,
-						quantityAvailableToGive: row.quantityAvailableToGive
+						quantityAvailableToGive: row.quantityAvailableToGive,
+						averagePrice: row.averagePrice,
+						suggestedSeller: row.suggestedSeller
 					});
 					giftOptions.set(option.itemId, option);
 				}

@@ -1,22 +1,30 @@
 // @ts-check
 
+/**
+ * @typedef {import("../../domain/entities/Item.mjs").Item} Item
+ */
+
 export class GiftOption {
 	/**
 	 * 
-	 * @arg {{itemId: string, name: string, picture: string, quantityNeeded: number, quantityAvailableToGive: number}} details
+	 * @arg {Item} details
 	 */
 	constructor(
-		{ itemId,
+		{ id,
 			name,
 			picture,
 			quantityNeeded,
-			quantityAvailableToGive }
+			quantityAvailableToGive,
+			averagePrice,
+			suggestedSeller }
 	) {
-		this.itemId = itemId;
+		this.itemId = id;
 		this.name = name;
 		this.picture = picture;
 		this.quantityNeeded = quantityNeeded;
 		this.quantityAvailableToGive = quantityAvailableToGive;
+		this.averagePrice = averagePrice;
+		this.suggestedSeller = suggestedSeller;
 
 		/**
 		 * @type {Array<{guestId: string, quantity: number}>}
