@@ -41,7 +41,7 @@ export class PgGuestsRepository extends GuestsRepository {
 	 */
 	async findByName(name) {
 		const connection = await this.db.getConnection();
-		const { rows } = await connection.query("select g.* from Guest g where name like $1 limit 2;", [`${name}%`]);
+		const { rows } = await connection.query("select g.* from Guest g where name ilike $1 limit 2;", [`${name}%`]);
 		if (!rows[0] || rows.length > 1) return;
 		return new Guest({
 			id: rows[0].id,
