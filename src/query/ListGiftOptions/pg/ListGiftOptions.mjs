@@ -19,16 +19,16 @@ export class ListGiftOptions {
 
 
 			const { rows } = await connection.query(`
-				select i.*,g.guest_id,g.quantity as given_quantity from Item i left outer join gift g on i.id=g.item_id;
+				select i.*,g.guest_id,g.quantity as given_quantity from Item i left outer join gift g on i.id=g.item_id order by i.id;
 			`);
 
 			/**
-			 * @type {Map<number, GiftOption>}
+			 * @type {Record<number, GiftOption>}
 			 */
-			const giftOptions = new Map();
+			const giftOptions = {};
 
 			for (const row of rows) {
-				let option = giftOptions.get(row.id);
+				let option = giftOptions[row.id];
 				if (!option) {
 					option = new GiftOption({
 						id: row.id,
@@ -39,7 +39,7 @@ export class ListGiftOptions {
 						averagePrice: row.average_price,
 						suggestedSeller: row.suggested_seller
 					});
-					giftOptions.set(option.itemId, option);
+					giftOptions[option.itemId] = option;
 				}
 				if (row.guest_id) {
 					option.addToGiftHistory(
@@ -48,7 +48,7 @@ export class ListGiftOptions {
 					);
 				}
 			}
-			return [...giftOptions.values()];
+			return Object.values(giftOptions);
 		};
 
 		return await this.cacheService.call(call, CACHE_KEYS.GIFT_OPTIONS);
