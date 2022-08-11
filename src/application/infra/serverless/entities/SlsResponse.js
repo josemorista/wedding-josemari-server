@@ -19,9 +19,9 @@ export class SlsResponse {
 		 */
 		this.headers = {
 			...headers,
-			"Access-Control-Allow-Origin": "*",
-			"Content-Type": "application/json; charset=utf-8",
-			"Access-Control-Allow-Credentials": true
+			'Access-Control-Allow-Origin': '*',
+			'Content-Type': 'application/json; charset=utf-8',
+			'Access-Control-Allow-Credentials': true
 		};
 	}
 }

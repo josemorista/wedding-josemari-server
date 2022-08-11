@@ -4,8 +4,8 @@
  * @typedef {import("../PgConnection.mjs").PgConnection} PgConnection
  */
 
-import { Item } from "../../../../domain/entities/Item.mjs";
-import { ItemsRepository } from "../../../repositories/ItemsRepository.mjs";
+import { Item } from '../../../../domain/entities/Item.mjs';
+import { ItemsRepository } from '../../../repositories/ItemsRepository.mjs';
 
 export class PgItemsRepository extends ItemsRepository {
 
@@ -24,7 +24,7 @@ export class PgItemsRepository extends ItemsRepository {
 	 */
 	async findById(id) {
 		const connection = await this.db.getConnection();
-		const { rows } = await connection.query("select i.* from Item i where id=$1;", [id]);
+		const { rows } = await connection.query('select i.* from Item i where id=$1;', [id]);
 		if (!rows[0]) return;
 		return new Item({
 			id: rows[0].id,
@@ -42,7 +42,7 @@ export class PgItemsRepository extends ItemsRepository {
 	 */
 	async updateAvailableQuantity(itemId, quantity) {
 		const connection = await this.db.getConnection();
-		await connection.query("update Item set quantity_available_to_give=$1 where id=$2;", [
+		await connection.query('update Item set quantity_available_to_give=$1 where id=$2;', [
 			quantity,
 			itemId
 		]);

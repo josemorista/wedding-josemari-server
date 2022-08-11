@@ -1,5 +1,5 @@
 // @ts-check
-import { CACHE_KEYS } from "../../config/cache.mjs";
+import { CACHE_KEYS } from '../../config/cache.mjs';
 
 /**
  * @typedef {import("../factories/RepositoriesFactory.mjs").RepositoriesFactory} RepositoriesFactory
@@ -25,13 +25,13 @@ export class UpdateGiftQuantity {
 	 */
 	async execute({ itemId, guestId, quantity }) {
 		const guest = await this.guestsRepository.findById(guestId);
-		if (!guest) throw new Error("Guest not found");
+		if (!guest) throw new Error('Guest not found');
 
 		const gift = await this.giftsRepository.findByGuestIdAndItem(guestId, itemId);
-		if (!gift) throw new Error("Gift not found");
+		if (!gift) throw new Error('Gift not found');
 
 		if (gift.quantity < quantity && (gift.item.quantityAvailableToGive + gift.quantity < quantity)) {
-			throw new Error("Invalid quantity");
+			throw new Error('Invalid quantity');
 		}
 
 		if (quantity <= 0) {

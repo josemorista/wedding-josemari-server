@@ -1,8 +1,8 @@
 // @ts-check
-import { UpdateGuest } from "../../../services/UpdateGuest.mjs";
-import { PgRepositoriesFactory } from "../../pg/factories/PgRepositoriesFactory.mjs";
-import { SlsResponse } from "../entities/SlsResponse";
-import { withAuthorization } from "../hofs/withAuthorization";
+import { UpdateGuest } from '../../../services/UpdateGuest.mjs';
+import { PgRepositoriesFactory } from '../../pg/factories/PgRepositoriesFactory.mjs';
+import { SlsResponse } from '../entities/SlsResponse';
+import { withAuthorization } from '../hofs/withAuthorization';
 
 const updateGuest = new UpdateGuest(new PgRepositoriesFactory());
 

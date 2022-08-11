@@ -12,7 +12,7 @@ export class GiftsRepository {
 	 * @returns {Promise<void>}
 	 */
 	create(gift) {
-		throw new Error("Abstract method");
+		throw new Error('Abstract method');
 	}
 
 	/**
@@ -23,7 +23,7 @@ export class GiftsRepository {
 	 * @abstract
 	 */
 	updateQuantity(guestId, itemId, quantity) {
-		throw new Error("Abstract method");
+		throw new Error('Abstract method');
 	}
 
 	/**
@@ -33,7 +33,7 @@ export class GiftsRepository {
 	 * @abstract
 	 */
 	delete(guestId, itemId) {
-		throw new Error("Abstract method");
+		throw new Error('Abstract method');
 	}
 
 	/**
@@ -44,6 +44,6 @@ export class GiftsRepository {
 	 * @abstract
 	 */
 	findByGuestIdAndItem(guestId, itemId) {
-		throw new Error("Abstract method");
+		throw new Error('Abstract method');
 	}
 }

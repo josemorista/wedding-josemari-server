@@ -1,10 +1,10 @@
 // @ts-check
 
-import { GiveGift } from "../../../services/GiveGift.mjs";
-import { PgRepositoriesFactory } from "../../pg/factories/PgRepositoriesFactory.mjs";
-import { cacheService } from "../../cache/services/CacheService.mjs";
-import { SlsResponse } from "../entities/SlsResponse";
-import { withAuthorization } from "../hofs/withAuthorization";
+import { GiveGift } from '../../../services/GiveGift.mjs';
+import { PgRepositoriesFactory } from '../../pg/factories/PgRepositoriesFactory.mjs';
+import { cacheService } from '../../cache/services/CacheService.mjs';
+import { SlsResponse } from '../entities/SlsResponse';
+import { withAuthorization } from '../hofs/withAuthorization';
 
 const giveGift = new GiveGift(cacheService, new PgRepositoriesFactory());
 

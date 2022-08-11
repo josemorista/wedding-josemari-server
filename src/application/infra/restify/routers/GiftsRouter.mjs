@@ -1,10 +1,10 @@
 // @ts-check
 
-import { RestifyRouter } from "./RestifyRouter.mjs";
-import { ListGiftOptionsController } from "../controllers/ListGiftOptionsController.mjs";
-import { GiveGiftController } from "../controllers/GiveGiftController.mjs";
-import { UpdateGiftController } from "../controllers/UpdateGiftController.mjs";
-import { ensureAuthentication } from "../filters/ensureAuthentication.mjs";
+import { RestifyRouter } from './RestifyRouter.mjs';
+import { ListGiftOptionsController } from '../controllers/ListGiftOptionsController.mjs';
+import { GiveGiftController } from '../controllers/GiveGiftController.mjs';
+import { UpdateGiftController } from '../controllers/UpdateGiftController.mjs';
+import { ensureAuthentication } from '../filters/ensureAuthentication.mjs';
 
 
 class GiftsRouter extends RestifyRouter {
@@ -21,9 +21,9 @@ class GiftsRouter extends RestifyRouter {
 	 * @type {RestifyRouter["register"]}
 	 */
 	register(server) {
-		server.get("/gifts", this.listGiftOptions.handle);
-		server.post("/gifts", ensureAuthentication, this.giveGift.handle);
-		server.patch("/gifts/quantity", ensureAuthentication, this.updateGift.handle);
+		server.get('/v1/gifts', this.listGiftOptions.handle);
+		server.post('/v1/gifts', ensureAuthentication, this.giveGift.handle);
+		server.patch('/v1/gifts/quantity', ensureAuthentication, this.updateGift.handle);
 	}
 }
 

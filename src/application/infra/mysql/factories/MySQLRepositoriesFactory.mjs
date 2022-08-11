@@ -1,9 +1,9 @@
 // @ts-check
-import { RepositoriesFactory } from "../../../factories/RepositoriesFactory.mjs";
-import { MySQLConnection } from "../MySQLConnection.mjs";
-import { MySQLGiftsRepository } from "../repositories/MySQLGiftsRepository.mjs";
-import { MySQLGuestsRepository } from "../repositories/MySQLGuestsRepository.mjs";
-import { MySQLItemsRepository } from "../repositories/MySQLItemsRepository.mjs";
+import { RepositoriesFactory } from '../../../factories/RepositoriesFactory.mjs';
+import { MySQLConnection } from '../MySQLConnection.mjs';
+import { MySQLGiftsRepository } from '../repositories/MySQLGiftsRepository.mjs';
+import { MySQLGuestsRepository } from '../repositories/MySQLGuestsRepository.mjs';
+import { MySQLItemsRepository } from '../repositories/MySQLItemsRepository.mjs';
 
 
 export class MySQLRepositoriesFactory extends RepositoriesFactory {

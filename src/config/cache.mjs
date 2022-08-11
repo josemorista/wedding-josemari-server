@@ -1,3 +1,3 @@
 export const CACHE_KEYS = {
-	GIFT_OPTIONS: "Gift:giftOptions"
+	GIFT_OPTIONS: 'Gift:giftOptions'
 };

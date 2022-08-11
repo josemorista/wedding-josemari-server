@@ -1,5 +1,5 @@
 // @ts-check
-import pg from "pg";
+import pg from 'pg';
 
 export class PgConnection {
 
@@ -8,7 +8,7 @@ export class PgConnection {
 	 */
 	static _instance = null;
 
-	constructor(uri = process.env.DB_URI || "postgres://weddingjosemariserver:docker@localhost:5432/wedding_jose_mari") {
+	constructor(uri = process.env.DB_URI || 'postgres://weddingjosemariserver:docker@localhost:5432/wedding_jose_mari') {
 		this._connection = new pg.Client({
 			ssl: {
 				rejectUnauthorized: false

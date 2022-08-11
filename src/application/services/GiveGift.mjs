@@ -1,7 +1,7 @@
 // @ts-check
 
-import { Gift } from "../../domain/entities/Gift.mjs";
-import { CACHE_KEYS } from "../../config/cache.mjs";
+import { Gift } from '../../domain/entities/Gift.mjs';
+import { CACHE_KEYS } from '../../config/cache.mjs';
 
 /**
  * @typedef {import("../factories/RepositoriesFactory.mjs").RepositoriesFactory} RepositoriesFactory
@@ -27,12 +27,12 @@ export class GiveGift {
 	 */
 	async execute({ itemId, guestId, quantity }) {
 		const guest = await this.guestsRepository.findById(guestId);
-		if (!guest) throw new Error("Guest not found");
+		if (!guest) throw new Error('Guest not found');
 		const item = await this.itemsRepository.findById(itemId);
-		if (!item) throw new Error("Item not found");
+		if (!item) throw new Error('Item not found');
 
 		let gift = await this.giftsRepository.findByGuestIdAndItem(guestId, itemId);
-		if (gift) throw new Error("Gift already exists");
+		if (gift) throw new Error('Gift already exists');
 
 		gift = new Gift({
 			guestId,
@@ -40,7 +40,7 @@ export class GiveGift {
 			quantity
 		});
 
-		if (gift.quantity > item.quantityAvailableToGive) throw new Error("Invalid quantity");
+		if (gift.quantity > item.quantityAvailableToGive) throw new Error('Invalid quantity');
 
 		await this.giftsRepository.create(gift);
 		await this.itemsRepository.updateAvailableQuantity(item.id,

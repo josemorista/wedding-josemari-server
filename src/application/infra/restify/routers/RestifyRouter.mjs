@@ -6,6 +6,6 @@ export class RestifyRouter {
 	 * @param {import("restify").Server} server 
 	 */
 	register(server) {
-		throw new Error("Not implemented");
+		throw new Error('Not implemented');
 	}
 }

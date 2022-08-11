@@ -1,7 +1,7 @@
 // @ts-check
 
-import jwt from "jsonwebtoken";
-import { AUTH_SECRET } from "../../../../config/auth.mjs";
+import jwt from 'jsonwebtoken';
+import { AUTH_SECRET } from '../../../../config/auth.mjs';
 
 /**
  * 
@@ -12,14 +12,14 @@ import { AUTH_SECRET } from "../../../../config/auth.mjs";
 export const ensureAuthentication = (request, response, next) => {
 	if (!request.headers.authorization) {
 		return response.json(403, {
-			error: "Missing authorization header"
+			error: 'Missing authorization header'
 		});
 	}
 
-	const [bearer, token] = request.headers.authorization.split(" ");
-	if (bearer !== "Bearer") {
+	const [bearer, token] = request.headers.authorization.split(' ');
+	if (bearer !== 'Bearer') {
 		return response.json(403, {
-			error: "Bad formatted token"
+			error: 'Bad formatted token'
 		});
 	}
 	try {
@@ -31,7 +31,7 @@ export const ensureAuthentication = (request, response, next) => {
 		return next();
 	} catch (error) {
 		return response.json(401, {
-			error: "Unauthorized"
+			error: 'Unauthorized'
 		});
 	}
 

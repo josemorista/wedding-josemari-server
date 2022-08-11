@@ -1,7 +1,7 @@
 // @ts-check
 
-import jwt from "jsonwebtoken";
-import { AUTH_SECRET, AUTH_EXPIRATION } from "../../config/auth.mjs";
+import jwt from 'jsonwebtoken';
+import { AUTH_SECRET, AUTH_EXPIRATION } from '../../config/auth.mjs';
 
 /**
  * @typedef {import("../factories/RepositoriesFactory.mjs").RepositoriesFactory} RepositoriesFactory
@@ -20,9 +20,9 @@ export class Login {
 	 * @param {string} name 
 	 */
 	async execute(name) {
-		if (!name || name.length < 3) throw new Error("Name is too short to search");
+		if (!name || name.length < 3) throw new Error('Name is too short to search');
 		const guest = await this.guestsRepository.findByName(name);
-		if (!guest) throw new Error("Guest not found");
+		if (!guest) throw new Error('Guest not found');
 		const token = jwt.sign({
 			name: guest.name,
 			confirmed: guest.confirmed

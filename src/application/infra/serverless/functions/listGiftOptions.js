@@ -1,8 +1,8 @@
 // @ts-check
 
-import { ListGiftOptions } from "../../../../query/ListGiftOptions/pg/ListGiftOptions.mjs";
-import { cacheService } from "../../cache/services/CacheService.mjs";
-import { SlsResponse } from "../entities/SlsResponse";
+import { ListGiftOptions } from '../../../../query/ListGiftOptions/pg/ListGiftOptions.mjs';
+import { cacheService } from '../../cache/services/CacheService.mjs';
+import { SlsResponse } from '../entities/SlsResponse';
 
 const listGiftOptions = new ListGiftOptions(cacheService);
 

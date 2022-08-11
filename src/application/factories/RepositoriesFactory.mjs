@@ -12,7 +12,7 @@ export class RepositoriesFactory {
 	 * @abstract
 	 */
 	createItemsRepository() {
-		throw new Error("Abstract method");
+		throw new Error('Abstract method');
 	}
 
 	/**
@@ -20,7 +20,7 @@ export class RepositoriesFactory {
 	 * @abstract
 	 */
 	createGuestsRepository() {
-		throw new Error("Abstract method");
+		throw new Error('Abstract method');
 	}
 
 	/**
@@ -28,6 +28,6 @@ export class RepositoriesFactory {
 	 * @abstract
 	 */
 	createGiftsRepository() {
-		throw new Error("Abstract method");
+		throw new Error('Abstract method');
 	}
 }

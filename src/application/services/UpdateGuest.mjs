@@ -21,7 +21,7 @@ export class UpdateGuest {
 	 */
 	async execute(guestId, updateGuestInput) {
 		const guest = await this.guestsRepository.findById(guestId);
-		if (!guest) throw new Error("Guest not found");
+		if (!guest) throw new Error('Guest not found');
 		await this.guestsRepository.updateGuest(guest.id, {
 			...guest,
 			...updateGuestInput

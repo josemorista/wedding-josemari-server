@@ -4,9 +4,9 @@
  * @typedef {import("../MySQLConnection.mjs").MySQLConnection} MySQLConnection
  */
 
-import { Gift } from "../../../../domain/entities/Gift.mjs";
-import { Item } from "../../../../domain/entities/Item.mjs";
-import { GiftsRepository } from "../../../repositories/GiftsRepository.mjs";
+import { Gift } from '../../../../domain/entities/Gift.mjs';
+import { Item } from '../../../../domain/entities/Item.mjs';
+import { GiftsRepository } from '../../../repositories/GiftsRepository.mjs';
 
 export class MySQLGiftsRepository extends GiftsRepository {
 
@@ -25,7 +25,7 @@ export class MySQLGiftsRepository extends GiftsRepository {
 	 */
 	async create(gift) {
 		const connection = await this.db.getConnection();
-		await connection.query("insert into Gift(itemId,guestId,quantity) values (?,?,?);", [
+		await connection.query('insert into Gift(itemId,guestId,quantity) values (?,?,?);', [
 			gift.item.id,
 			gift.guestId,
 			gift.quantity
@@ -37,7 +37,7 @@ export class MySQLGiftsRepository extends GiftsRepository {
 	 */
 	async updateQuantity(guestId, itemId, quantity) {
 		const connection = await this.db.getConnection();
-		await connection.query("update Gift set quantity=? where guestId=? and itemId=?;", [
+		await connection.query('update Gift set quantity=? where guestId=? and itemId=?;', [
 			quantity,
 			guestId,
 			itemId
@@ -50,7 +50,7 @@ export class MySQLGiftsRepository extends GiftsRepository {
 	 */
 	async findByGuestIdAndItem(guestId, itemId) {
 		const connection = await this.db.getConnection();
-		const [rows] = await connection.query("select g.*,i.* from Gift g inner join Item i on g.itemId=i.id where guestId=? and itemId=? limit 1;", [
+		const [rows] = await connection.query('select g.*,i.* from Gift g inner join Item i on g.itemId=i.id where guestId=? and itemId=? limit 1;', [
 			guestId,
 			itemId
 		]);
@@ -74,7 +74,7 @@ export class MySQLGiftsRepository extends GiftsRepository {
 	 */
 	async delete(guestId, itemId) {
 		const connection = await this.db.getConnection();
-		await connection.query("delete from Gift where guestId=? and itemId=?;", [guestId, itemId]);
+		await connection.query('delete from Gift where guestId=? and itemId=?;', [guestId, itemId]);
 	}
 
 }

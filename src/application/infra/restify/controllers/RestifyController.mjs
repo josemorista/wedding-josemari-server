@@ -18,6 +18,6 @@ export class RestifyController {
 	 * @returns {Promise<void>}
 	 */
 	handle(request, response, next) {
-		throw new Error("Abstract method");
+		throw new Error('Abstract method');
 	}
 }

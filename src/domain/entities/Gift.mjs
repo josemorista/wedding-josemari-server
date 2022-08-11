@@ -11,7 +11,7 @@ export class Gift {
 	constructor(
 		details
 	) {
-		if (details.quantity <= 0) throw new Error("Invalid quantity");
+		if (details.quantity <= 0) throw new Error('Invalid quantity');
 		/**
 		 * @type {Item}
 		 */

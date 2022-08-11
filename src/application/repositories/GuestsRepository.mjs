@@ -12,7 +12,7 @@ export class GuestsRepository {
 	 * @returns {Promise<void>}
 	 */
 	updateGuest(guestId, updateGuestDTO) {
-		throw new Error("Abstract method");
+		throw new Error('Abstract method');
 	}
 
 	/**
@@ -21,7 +21,7 @@ export class GuestsRepository {
 	 * @returns {Promise<Guest | undefined>}
 	 */
 	findById(guestId) {
-		throw new Error("Abstract method");
+		throw new Error('Abstract method');
 	}
 
 	/**
@@ -30,6 +30,6 @@ export class GuestsRepository {
 	 * @returns {Promise<Guest | undefined>}
 	 */
 	findByName(name) {
-		throw new Error("Abstract method");
+		throw new Error('Abstract method');
 	}
 }

@@ -11,7 +11,7 @@ export class ItemsRepository {
 	 * @returns {Promise<Item | undefined>} 
 	 */
 	findById(itemId) {
-		throw new Error("Abstract method");
+		throw new Error('Abstract method');
 	}
 
 	/**
@@ -21,6 +21,6 @@ export class ItemsRepository {
 	 * @returns {Promise<void>}
 	 */
 	updateAvailableQuantity(itemId, quantity) {
-		throw new Error("Abstract method");
+		throw new Error('Abstract method');
 	}
 }

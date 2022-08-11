@@ -1,9 +1,9 @@
 // @ts-check
 
-import { UpdateGiftQuantity } from "../../../services/UpdateGiftQuantity.mjs";
-import { RestifyController } from "./RestifyController.mjs";
-import { PgRepositoriesFactory } from "../../pg/factories/PgRepositoriesFactory.mjs";
-import { cacheService } from "../../cache/services/CacheService.mjs";
+import { UpdateGiftQuantity } from '../../../services/UpdateGiftQuantity.mjs';
+import { RestifyController } from './RestifyController.mjs';
+import { PgRepositoriesFactory } from '../../pg/factories/PgRepositoriesFactory.mjs';
+import { cacheService } from '../../cache/services/CacheService.mjs';
 
 export class UpdateGiftController extends RestifyController {
 	constructor() {

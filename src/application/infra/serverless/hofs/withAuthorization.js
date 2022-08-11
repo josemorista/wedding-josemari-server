@@ -1,20 +1,20 @@
 // @ts-check
-import { SlsResponse } from "../entities/SlsResponse";
+import { SlsResponse } from '../entities/SlsResponse';
 
-import jwt from "jsonwebtoken";
-import { AUTH_SECRET } from "../../../../config/auth.mjs";
+import jwt from 'jsonwebtoken';
+import { AUTH_SECRET } from '../../../../config/auth.mjs';
 
 export const withAuthorization = cb => {
 	return async (event, ctx) => {
-		if (!event.headers["Authorization"]) {
+		if (!event.headers['Authorization']) {
 			return new SlsResponse({
-				error: "Missing authorization header"
+				error: 'Missing authorization header'
 			}, 403);
 		}
-		const [bearer, token] = event.headers["Authorization"].split(" ");
-		if (bearer !== "Bearer") {
+		const [bearer, token] = event.headers['Authorization'].split(' ');
+		if (bearer !== 'Bearer') {
 			return new SlsResponse({
-				error: "Bad formatted token"
+				error: 'Bad formatted token'
 			}, 403);
 		}
 		try {
@@ -26,7 +26,7 @@ export const withAuthorization = cb => {
 			return await cb(event, ctx);
 		} catch (error) {
 			return new SlsResponse({
-				error: "Unauthorized"
+				error: 'Unauthorized'
 			}, 403);
 		}
 	};

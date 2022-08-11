@@ -1,8 +1,8 @@
 // @ts-check
 
-import { Login } from "../../../services/Login.mjs";
-import { RestifyController } from "./RestifyController.mjs";
-import { PgRepositoriesFactory } from "../../pg/factories/PgRepositoriesFactory.mjs";
+import { Login } from '../../../services/Login.mjs';
+import { RestifyController } from './RestifyController.mjs';
+import { PgRepositoriesFactory } from '../../pg/factories/PgRepositoriesFactory.mjs';
 
 export class LoginController extends RestifyController {
 	constructor() {

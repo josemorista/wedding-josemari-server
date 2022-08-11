@@ -4,7 +4,7 @@
  * @typedef {import("mysql2/promise").Pool} Connection
  */
 
-import { createPool } from "mysql2/promise";
+import { createPool } from 'mysql2/promise';
 
 export class MySQLConnection {
 	/**
@@ -16,7 +16,7 @@ export class MySQLConnection {
 	 * 
 	 * @param {string} [uri] 
 	 */
-	constructor(uri = process.env.DB_URI || "mysql://root:docker@localhost:3306/wedding-jose-mari") {
+	constructor(uri = process.env.DB_URI || 'mysql://root:docker@localhost:3306/wedding-jose-mari') {
 		this.uri = uri;
 		/**
 		 * @type {Connection | null}
