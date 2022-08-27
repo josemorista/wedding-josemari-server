@@ -8,10 +8,9 @@ import { Guest } from '../../../../domain/entities/Guest.mjs';
 import { GuestsRepository } from '../../../repositories/GuestsRepository.mjs';
 
 export class PgGuestsRepository extends GuestsRepository {
-
 	/**
-	 * 
-	 * @param {PgConnection} connection 
+	 *
+	 * @param {PgConnection} connection
 	 */
 	constructor(connection) {
 		super();
@@ -19,37 +18,51 @@ export class PgGuestsRepository extends GuestsRepository {
 	}
 
 	/**
-	 * 
+	 *
 	 * @type {GuestsRepository["findById"]}
 	 */
 	async findById(id) {
 		const connection = await this.db.getConnection();
-		const { rows } = await connection.query('select g.* from Guest g where id=$1 limit 1;', [id]);
+		const { rows } = await connection.query(
+			`select g.* ,e.name as escort_name, e.guest_id from Guest g
+			left outer join escorts e on g.id=e.guest_id
+		 	where g.id=$1;`,
+			[id]
+		);
 		if (!rows[0]) return;
-		return new Guest({
+		const guest = new Guest({
 			id: rows[0].id,
 			name: rows[0].name,
 			confirmed: rows[0].confirmed,
 			numberOfChildren: rows[0].number_of_children,
-			numberOfEscorts: rows[0].number_of_escorts
 		});
+		for (const row of rows) {
+			if (row.guest_id) {
+				guest.addEscort(row.escort_name);
+			}
+		}
+		return guest;
 	}
 
 	/**
-	 * 
+	 *
 	 * @type {GuestsRepository["findByName"]}
 	 */
 	async findByName(name) {
 		const connection = await this.db.getConnection();
 		const { rows } = await connection.query('select g.* from Guest g where name ilike $1 limit 2;', [`${name}%`]);
 		if (!rows[0] || rows.length > 1) return;
-		return new Guest({
+		const guest = new Guest({
 			id: rows[0].id,
 			name: rows[0].name,
 			confirmed: !!rows[0].confirmed,
 			numberOfChildren: rows[0].number_of_children,
-			numberOfEscorts: rows[0].number_of_escorts
 		});
+		const { rows: escorts } = await connection.query('select name from escorts where guest_id=$1;', [guest.id]);
+		for (const escort of escorts) {
+			guest.addEscort(escort.name);
+		}
+		return guest;
 	}
 
 	/**
@@ -57,11 +70,23 @@ export class PgGuestsRepository extends GuestsRepository {
 	 */
 	async updateGuest(guestId, updateGuestDTO) {
 		const connection = await this.db.getConnection();
-		await connection.query('update Guest set confirmed=$1,number_of_children=$2,number_of_escorts=$3 where id=$4;', [
+		await connection.query('update Guest set confirmed=$1,number_of_children=$2 where id=$4;', [
 			updateGuestDTO.confirmed,
 			updateGuestDTO.numberOfChildren,
-			updateGuestDTO.numberOfEscorts,
-			guestId
+			guestId,
 		]);
+		if (updateGuestDTO.escorts) {
+			const { rows: escorts } = await connection.query('select lower(name) from escorts where guest_id=$1;');
+			for (const escort of escorts) {
+				if (!updateGuestDTO.escorts.some((el) => el.name.toLowerCase() === escort.name)) {
+					await connection.query('delete from escorts where name ilike $1 and guest_id=$2;', [escort.name, guestId]);
+				}
+			}
+			for (const escort of updateGuestDTO.escorts) {
+				if (!escorts.some((el) => el.name === escort.name.toLowerCase())) {
+					await connection.query('insert into escorts(name, guest_id) values ($1,$2);'[(escort.name, guestId)]);
+				}
+			}
+		}
 	}
 }

@@ -8,7 +8,7 @@ export class GuestsRepository {
 	/**
 	 * @abstract
 	 * @arg {number} guestId
-	 * @arg {Omit<Guest, 'id' | 'name'>} updateGuestDTO
+	 * @arg {Omit<Guest, 'id' | 'name' | 'addEscort'>} updateGuestDTO
 	 * @returns {Promise<void>}
 	 */
 	updateGuest(guestId, updateGuestDTO) {

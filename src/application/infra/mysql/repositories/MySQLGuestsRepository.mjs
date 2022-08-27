@@ -8,10 +8,9 @@ import { Guest } from '../../../../domain/entities/Guest.mjs';
 import { GuestsRepository } from '../../../repositories/GuestsRepository.mjs';
 
 export class MySQLGuestsRepository extends GuestsRepository {
-
 	/**
-	 * 
-	 * @param {MySQLConnection} connection 
+	 *
+	 * @param {MySQLConnection} connection
 	 */
 	constructor(connection) {
 		super();
@@ -19,24 +18,36 @@ export class MySQLGuestsRepository extends GuestsRepository {
 	}
 
 	/**
-	 * 
+	 *
 	 * @type {GuestsRepository["findById"]}
 	 */
 	async findById(id) {
 		const connection = await this.db.getConnection();
-		const [rows] = await connection.query('select g.* from Guest g where id=? limit 1;', [id]);
+		/**
+		 * @type {any}
+		 */
+		const [rows] = await connection.query(
+			`select g.*,e.name as escortName,e.guestId from Guest g 
+		left outer join Escort e on g.id=e.guestId
+		 where g.id=?;`,
+			[id]
+		);
 		if (!rows[0]) return;
-		return new Guest({
+		const guest = new Guest({
 			id: rows[0].id,
 			name: rows[0].name,
 			confirmed: !!rows[0].confirmed,
 			numberOfChildren: rows[0].numberOfChildren,
-			numberOfEscorts: rows[0].numberOfEscorts
 		});
+		for (const row of rows) {
+			if (row.guestId) {
+				guest.addEscort(row.escortName);
+			}
+		}
 	}
 
 	/**
-	 * 
+	 *
 	 * @type {GuestsRepository["findByName"]}
 	 */
 	async findByName(name) {
@@ -46,13 +57,13 @@ export class MySQLGuestsRepository extends GuestsRepository {
 		 */
 		const [rows] = await connection.query('select g.* from Guest g where name like ? limit 2;', [`${name}%`]);
 		if (!rows[0] || rows.length > 1) return;
-		return new Guest({
+		const guest = new Guest({
 			id: rows[0].id,
 			name: rows[0].name,
 			confirmed: !!rows[0].confirmed,
 			numberOfChildren: rows[0].numberOfChildren,
-			numberOfEscorts: rows[0].numberOfEscorts
 		});
+		const [escorts] = await connection.query('select name from Escort where guestId=?;', [guest.id]);
 	}
 
 	/**
@@ -63,8 +74,7 @@ export class MySQLGuestsRepository extends GuestsRepository {
 		await connection.query('update Guest set confirmed=?,numberOfChildren=?,numberOfEscorts=? where id=?;', [
 			updateGuestDTO.confirmed,
 			updateGuestDTO.numberOfChildren,
-			updateGuestDTO.numberOfEscorts,
-			guestId
+			guestId,
 		]);
 	}
 }
