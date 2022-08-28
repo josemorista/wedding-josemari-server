@@ -88,7 +88,9 @@ export class MySQLGuestsRepository extends GuestsRepository {
 				guestId,
 			]);
 			if (updateGuestDTO.escorts) {
-				const { rows: escorts } = await connection.query('select lower(name) from Escort where guestId=$1;', [guestId]);
+				const { rows: escorts } = await connection.query('select lower(name) as name from Escort where guestId=$1;', [
+					guestId,
+				]);
 				for (const escort of escorts) {
 					if (!updateGuestDTO.escorts.some((el) => el.name.toLowerCase() === escort.name)) {
 						await connection.query('delete from Escort where name like $1 and guestId=$2;', [escort.name, guestId]);

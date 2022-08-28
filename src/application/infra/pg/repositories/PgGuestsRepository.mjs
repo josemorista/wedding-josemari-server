@@ -78,13 +78,13 @@ export class PgGuestsRepository extends GuestsRepository {
 		const connection = await this.db.getConnection();
 		await connection.query('BEGIN;');
 		try {
-			await connection.query('update Guest set confirmed=$1,number_of_children=$2 where id=$4;', [
+			await connection.query('update Guest set confirmed=$1,number_of_children=$2 where id=$3;', [
 				updateGuestDTO.confirmed,
 				updateGuestDTO.numberOfChildren,
 				guestId,
 			]);
 			if (updateGuestDTO.escorts) {
-				const { rows: escorts } = await connection.query('select lower(name) from Escort where guest_id=$1;', [
+				const { rows: escorts } = await connection.query('select lower(name) as name from Escort where guest_id=$1;', [
 					guestId,
 				]);
 				for (const escort of escorts) {
@@ -94,7 +94,7 @@ export class PgGuestsRepository extends GuestsRepository {
 				}
 				for (const escort of updateGuestDTO.escorts) {
 					if (!escorts.some((el) => el.name === escort.name.toLowerCase())) {
-						await connection.query('insert into Escort(name, guest_id) values ($1,$2);', [(escort.name, guestId)]);
+						await connection.query('insert into Escort(name, guest_id) values ($1,$2);', [escort.name, guestId]);
 					}
 				}
 			}

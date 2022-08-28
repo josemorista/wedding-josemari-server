@@ -1,3 +1,5 @@
+alter table Guest drop column number_of_escorts;
+
 create table if not exists Escort(
 	guest_id int not null,
 	name varchar(100) not null,
