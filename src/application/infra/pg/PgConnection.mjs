@@ -8,13 +8,10 @@ export class PgConnection {
 	static _instance = null;
 
 	constructor(uri = process.env.DB_URI || 'postgres://weddingjosemariserver:docker@localhost:5432/wedding_jose_mari') {
-		this._connection = new pg.Client({
-			/*ssl: {
-				rejectUnauthorized: false
-			},*/
-			connectionString: uri,
-		});
-		this.isConnected = false;
+		/**
+		 * @type {string}
+		 */
+		this._connectionString = uri;
 	}
 
 	/**
@@ -29,10 +26,10 @@ export class PgConnection {
 	}
 
 	async getConnection() {
-		if (!this.isConnected) {
-			await this._connection.connect();
-			this.isConnected = true;
-		}
-		return this._connection;
+		const client = new pg.Client({
+			connectionString: this._connectionString,
+		});
+		await client.connect();
+		return client;
 	}
 }
