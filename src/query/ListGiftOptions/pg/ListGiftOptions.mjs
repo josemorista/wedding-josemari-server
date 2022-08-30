@@ -45,7 +45,7 @@ export class ListGiftOptions {
 				}
 				return Object.values(giftOptions);
 			} finally {
-				await connection.end();
+				connection.release();
 			}
 		};
 

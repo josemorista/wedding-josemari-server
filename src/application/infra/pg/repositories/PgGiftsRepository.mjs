@@ -31,7 +31,7 @@ export class PgGiftsRepository extends GiftsRepository {
 				gift.quantity,
 			]);
 		} finally {
-			await connection.end();
+			connection.release();
 		}
 	}
 
@@ -47,7 +47,7 @@ export class PgGiftsRepository extends GiftsRepository {
 				itemId,
 			]);
 		} finally {
-			connection.end();
+			connection.release();
 		}
 	}
 
@@ -77,7 +77,7 @@ export class PgGiftsRepository extends GiftsRepository {
 				}),
 			});
 		} finally {
-			await connection.end();
+			connection.release();
 		}
 	}
 
@@ -90,7 +90,7 @@ export class PgGiftsRepository extends GiftsRepository {
 		try {
 			await connection.query('delete from Gift where guest_id=$1 and item_id=$2;', [guestId, itemId]);
 		} finally {
-			connection.end();
+			connection.release();
 		}
 	}
 }

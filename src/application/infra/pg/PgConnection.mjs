@@ -12,6 +12,10 @@ export class PgConnection {
 		 * @type {string}
 		 */
 		this._connectionString = uri;
+		this._pool = new pg.Pool({
+			connectionString: this._connectionString,
+			max: 1,
+		});
 	}
 
 	/**
@@ -26,10 +30,6 @@ export class PgConnection {
 	}
 
 	async getConnection() {
-		const client = new pg.Client({
-			connectionString: this._connectionString,
-		});
-		await client.connect();
-		return client;
+		return await this._pool.connect();
 	}
 }
