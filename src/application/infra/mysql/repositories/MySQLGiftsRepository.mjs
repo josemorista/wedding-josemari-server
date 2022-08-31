@@ -9,10 +9,9 @@ import { Item } from '../../../../domain/entities/Item.mjs';
 import { GiftsRepository } from '../../../repositories/GiftsRepository.mjs';
 
 export class MySQLGiftsRepository extends GiftsRepository {
-
 	/**
-	 * 
-	 * @param {MySQLConnection} connection 
+	 *
+	 * @param {MySQLConnection} connection
 	 */
 	constructor(connection) {
 		super();
@@ -20,7 +19,7 @@ export class MySQLGiftsRepository extends GiftsRepository {
 	}
 
 	/**
-	 * 
+	 *
 	 * @type {GiftsRepository["create"]}
 	 */
 	async create(gift) {
@@ -28,7 +27,7 @@ export class MySQLGiftsRepository extends GiftsRepository {
 		await connection.query('insert into Gift(itemId,guestId,quantity) values (?,?,?);', [
 			gift.item.id,
 			gift.guestId,
-			gift.quantity
+			gift.quantity,
 		]);
 	}
 
@@ -37,23 +36,19 @@ export class MySQLGiftsRepository extends GiftsRepository {
 	 */
 	async updateQuantity(guestId, itemId, quantity) {
 		const connection = await this.db.getConnection();
-		await connection.query('update Gift set quantity=? where guestId=? and itemId=?;', [
-			quantity,
-			guestId,
-			itemId
-		]);
+		await connection.query('update Gift set quantity=? where guestId=? and itemId=?;', [quantity, guestId, itemId]);
 	}
 
 	/**
-	 * 
+	 *
 	 * @type {GiftsRepository["findByGuestIdAndItem"]}
 	 */
 	async findByGuestIdAndItem(guestId, itemId) {
 		const connection = await this.db.getConnection();
-		const [rows] = await connection.query('select g.*,i.* from Gift g inner join Item i on g.itemId=i.id where guestId=? and itemId=? limit 1;', [
-			guestId,
-			itemId
-		]);
+		const [rows] = await connection.query(
+			'select g.*,i.* from Gift g inner join Item i on g.itemId=i.id where guestId=? and itemId=? limit 1;',
+			[guestId, itemId]
+		);
 		if (!rows[0]) return;
 		return new Gift({
 			guestId,
@@ -63,18 +58,19 @@ export class MySQLGiftsRepository extends GiftsRepository {
 				name: rows[0].name,
 				picture: rows[0].picture,
 				quantityAvailableToGive: rows[0].quantityAvailableToGive,
-				quantityNeeded: rows[0].quantityNeeded
-			})
+				quantityNeeded: rows[0].quantityNeeded,
+				averagePrice: rows[0].averagePrice,
+				suggestedSeller: rows[0].suggestedSeller,
+			}),
 		});
 	}
 
 	/**
-	 * 
+	 *
 	 * @type {GiftsRepository["delete"]}
 	 */
 	async delete(guestId, itemId) {
 		const connection = await this.db.getConnection();
 		await connection.query('delete from Gift where guestId=? and itemId=?;', [guestId, itemId]);
 	}
-
 }
