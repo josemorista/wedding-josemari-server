@@ -1,0 +1,1 @@
+delete from guest where id in (20, 28);
