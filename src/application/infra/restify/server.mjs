@@ -5,12 +5,12 @@ import corsMiddleware from 'restify-cors-middleware2';
 
 const cors = corsMiddleware({
 	origins: ['*'],
-	allowHeaders: ['Authorization']
+	allowHeaders: ['Authorization'],
 });
 
 const server = createServer({
 	name: 'wedding-jose-mari',
-	version: 'v1'
+	version: 'v1',
 });
 
 server.use(cors.actual);
