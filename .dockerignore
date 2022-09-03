@@ -1,0 +1,11 @@
+node_modules
+.serverless
+.editorconfig
+.eslintrc
+.prettierrc
+.gitignore
+serverless.yml
+webpack.config.js
+docker-compose.yml
+entities.drawio
+.env

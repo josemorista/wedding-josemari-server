@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { createServer, plugins } from 'restify';
 import { guestsRouter } from './routers/GuestsRouter.mjs';
 import { giftsRouter } from './routers/GiftsRouter.mjs';

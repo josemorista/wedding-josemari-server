@@ -14,7 +14,7 @@ export class PgConnection {
 		this._connectionString = uri;
 		this._pool = new pg.Pool({
 			connectionString: this._connectionString,
-			max: 1,
+			max: 4,
 		});
 	}
 

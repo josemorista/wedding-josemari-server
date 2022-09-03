@@ -3,6 +3,9 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "src/application/infra/restify/server.mjs",
+	"engines": {
+		"node": "16.x"
+	},
 	"scripts": {
 		"start": "node src/application/infra/restify/server.mjs",
 		"dev:server": "npx nodemon",
@@ -28,12 +31,13 @@
 	},
 	"dependencies": {
 		"cache-service-lib": "^3.1.1",
+		"dotenv": "^16.0.2",
 		"jsonwebtoken": "^8.5.1",
-		"pg": "^8.7.3"
-	},
-	"peerDependencies": {
-		"mysql2": "^2.3.3",
+		"pg": "^8.7.3",
 		"restify": "^8.6.1",
 		"restify-cors-middleware2": "^2.1.2"
+	},
+	"peerDependencies": {
+		"mysql2": "^2.3.3"
 	}
 }
