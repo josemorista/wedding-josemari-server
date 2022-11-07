@@ -20,9 +20,9 @@ export class UpdateGuest {
 	 * @param {UpdateGuestInput} updateGuestInput
 	 */
 	async execute(guestId, updateGuestInput) {
+		console.log(updateGuestInput);
 		const guest = await this.guestsRepository.findById(guestId);
 		if (!guest) throw new Error('Guest not found');
-		if (updateGuestInput.escorts && updateGuestInput.escorts.length > 1) throw new Error('Invalid escorts quantity');
 		await this.guestsRepository.updateGuest(guest.id, {
 			...guest,
 			...updateGuestInput,
