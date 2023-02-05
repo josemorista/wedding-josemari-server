@@ -18,15 +18,15 @@ export class ListGiftOptions {
 			const connection = await this.db.getConnection();
 			try {
 				const { rows } = await connection.query(`
-				select i.*,g.guest_id,g.quantity as given_quantity from Item i left outer join gift g on i.id=g.item_id order by i.id;
+				select i.*,g.guest_id,g.quantity as given_quantity from Item i left outer join gift g on i.id=g.item_id order by i.id desc;
 			`);
 				/**
-				 * @type {Record<number, GiftOption>}
+				 * @type {Map<number, GiftOption>}
 				 */
-				const giftOptions = {};
+				const giftOptions = new Map();
 
 				for (const row of rows) {
-					let option = giftOptions[row.id];
+					let option = giftOptions.get(row.id);
 					if (!option) {
 						option = new GiftOption({
 							id: row.id,
@@ -37,13 +37,13 @@ export class ListGiftOptions {
 							averagePrice: row.average_price,
 							suggestedSeller: row.suggested_seller,
 						});
-						giftOptions[option.itemId] = option;
+						giftOptions.set(row.id, option);
 					}
 					if (row.guest_id) {
 						option.addToGiftHistory(row.guest_id, row.given_quantity);
 					}
 				}
-				return Object.values(giftOptions);
+				return [...giftOptions.values()];
 			} finally {
 				connection.release();
 			}
