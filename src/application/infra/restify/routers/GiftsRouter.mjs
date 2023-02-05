@@ -6,9 +6,7 @@ import { GiveGiftController } from '../controllers/GiveGiftController.mjs';
 import { UpdateGiftController } from '../controllers/UpdateGiftController.mjs';
 import { ensureAuthentication } from '../filters/ensureAuthentication.mjs';
 
-
 class GiftsRouter extends RestifyRouter {
-
 	constructor() {
 		super();
 		this.listGiftOptions = new ListGiftOptionsController();
@@ -17,7 +15,7 @@ class GiftsRouter extends RestifyRouter {
 	}
 
 	/**
-	 * 
+	 *
 	 * @type {RestifyRouter["register"]}
 	 */
 	register(server) {
