@@ -11,3 +11,17 @@ insert into item(id, name, picture, quantity_available_to_give, quantity_needed,
 (41, 'Caminho de Mesa Raye 38 cm x 1,60 m', 'caminho.webp', 1, 1, 49.99, 'https://www.camicado.com.br/p/caminho-de-mesa-raye-38-cm-x-160-m-home-style/-/A-300049375-br.lc?sku=000000000000049375&utm_id=18288222626'),
 (42, 'Kit Potes de Plástico Herméticos Electrolux', 'potes.jpg', 1, 1, 81.90, 'https://www.amazon.com.br/Kit-Potes-para-Alimentos-Electrolux/dp/B0784CLYGQ'),
 (43, 'Conjunto para Fondue Brinox Vermelho', 'fondue.jpg', 1, 1, 125.89, 'https://www.amazon.com.br/Conjunto-Fondue-Chocolate-Pecas-Brinox/dp/B07QQV4HVQ');
+select * from guest where name like '%Tieres';
+update guest set name = 'Lucas Thieres' where id=46;
+update guest set name = 'Luis Felipe Thieres' where id=47;
+insert into guest(id,name, confirmed, number_of_children) VALUES
+                                                         (74,'Sônia Araújo', false, 0),
+                                                         (75,'Geralda Maria Matos', false, 0),
+                                                         (76,'Ana Evarista da Silva', false, 0),
+                                                         (77,'Lucas Muniz', false, 0),
+                                                         (78,'Leonardo Muniz', false, 0),
+                                                         (79,'Roney Aguiar', false, 0),
+                                                         (80,'Matheus Lima Marins', false, 0),
+                                                         (81,'Laís Aguiar', false, 0);
+insert into public.item(id, name, picture, quantity_available_to_give, quantity_needed, average_price, suggested_seller)
+values (44,'Lyor Diamond Conjunto 6 Taças para Água de Vidro, Azul', 'taca_azul.jpg', 1, 1, 139.90, 'https://www.amazon.com.br/dp/B077M2V2J5/');
