@@ -11,20 +11,19 @@ export class LoginController extends RestifyController {
 	}
 
 	/**
-	 * 
+	 *
 	 * @type {RestifyController["handle"]}
 	 */
 	async handle(request, response) {
 		try {
 			const { name } = request.body;
-			return response.json(await this.loginService.execute(name));
+			response.json(await this.loginService.execute(name));
 		} catch (error) {
 			console.error(error);
 			response.statusCode = 400;
-			return response.json({
-				error: error.message
+			response.json({
+				error: error.message,
 			});
 		}
-
 	}
 }

@@ -16,10 +16,10 @@ export class ListGiftOptionsController extends RestifyController {
 	 */
 	async handle(request, response) {
 		try {
-			return response.json(await this.listGiftOptions.execute());
+			response.json(await this.listGiftOptions.execute());
 		} catch (error) {
 			console.error(error);
-			return response.json(400, {
+			response.json(400, {
 				error: error.message,
 			});
 		}

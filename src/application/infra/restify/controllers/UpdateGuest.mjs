@@ -11,21 +11,20 @@ export class UpdateGuestController extends RestifyController {
 	}
 
 	/**
-	 * 
+	 *
 	 * @type {RestifyController["handle"]}
 	 */
 	async handle(request, response) {
 		try {
 			await this.updateGuestService.execute(request.guestId || 0, request.body);
 			response.statusCode = 204;
-			return response.send();
+			response.send();
 		} catch (error) {
 			console.error(error);
 			response.statusCode = 400;
-			return response.json({
-				error: error.message
+			response.json({
+				error: error.message,
 			});
 		}
-
 	}
 }

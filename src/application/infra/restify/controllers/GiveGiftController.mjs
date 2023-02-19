@@ -12,7 +12,7 @@ export class GiveGiftController extends RestifyController {
 	}
 
 	/**
-	 * 
+	 *
 	 * @type {RestifyController["handle"]}
 	 */
 	async handle(request, response) {
@@ -20,17 +20,16 @@ export class GiveGiftController extends RestifyController {
 			await this.giveGift.execute({
 				guestId: request.guestId || 0,
 				itemId: request.body.itemId,
-				quantity: request.body.quantity
+				quantity: request.body.quantity,
 			});
 			response.statusCode = 201;
-			return response.send();
+			response.send();
 		} catch (error) {
 			console.error(error);
 			response.statusCode = 400;
-			return response.json({
-				error: error.message
+			response.json({
+				error: error.message,
 			});
 		}
-
 	}
 }

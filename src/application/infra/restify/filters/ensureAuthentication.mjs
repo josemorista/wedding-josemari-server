@@ -10,16 +10,18 @@ import { AUTH_SECRET } from '../../../../config/auth.mjs';
  */
 export const ensureAuthentication = async (request, response) => {
 	if (!request.headers.authorization) {
-		return response.json(403, {
+		response.json(403, {
 			error: 'Missing authorization header',
 		});
+		return;
 	}
 
 	const [bearer, token] = request.headers.authorization.split(' ');
 	if (bearer !== 'Bearer') {
-		return response.json(403, {
+		response.json(403, {
 			error: 'Bad formatted token',
 		});
+		return;
 	}
 	try {
 		/**
@@ -28,7 +30,7 @@ export const ensureAuthentication = async (request, response) => {
 		const decoded = jwt.verify(token, AUTH_SECRET);
 		request.guestId = parseInt(decoded.sub);
 	} catch (error) {
-		return response.json(401, {
+		response.json(401, {
 			error: 'Unauthorized',
 		});
 	}
