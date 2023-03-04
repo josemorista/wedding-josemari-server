@@ -25,3 +25,6 @@ insert into guest(id,name, confirmed, number_of_children) VALUES
                                                          (81,'Laís Aguiar', false, 0);
 insert into public.item(id, name, picture, quantity_available_to_give, quantity_needed, average_price, suggested_seller)
 values (44,'Lyor Diamond Conjunto 6 Taças para Água de Vidro, Azul', 'taca_azul.jpg', 1, 1, 139.90, 'https://www.amazon.com.br/dp/B077M2V2J5/');
+update item set average_price=209.33 where id=4;
+update item set average_price=298.32, suggested_seller='https://www.magazineluiza.com.br/multiprocessador-mondial-turbo-chef-7-em-1-preto-127v/p/he069a0g0a/pi/pdai/?&seller_id=continentalcenter' where id=38;
+update item set average_price=178.42,suggested_seller='https://www.pontofrio.com.br/mixer-britania-bmx400p-3-em-1-400w-preto-127v-1521669409/p/1521669409' where id=33;
