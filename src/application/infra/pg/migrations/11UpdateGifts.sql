@@ -31,3 +31,4 @@ update item set average_price=178.42,suggested_seller='https://www.pontofrio.com
 update item set average_price=137.70 where id=7;
 insert into guest(id,name, confirmed, number_of_children) values (82,'Antônio Carlos Pimenta', true, 0);
 insert into escort(guest_id, name) values (82, 'Aline de Castro');
+insert into guest(id, name, confirmed, number_of_children) VALUES (83, 'Vitória Ferreira Soares', false, 0), (84, 'Viviane Ferreira Soares', false, 0);
